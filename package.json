@@ -1,0 +1,22 @@
+{
+  "name": "c_to_python_compiler",
+  "version": "1.0.0",
+  "description": "c to python javascript compiler",
+  "main": "compiler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/unbiarirang/c_to_python_compiler.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/unbiarirang/c_to_python_compiler/issues"
+  },
+  "homepage": "https://github.com/unbiarirang/c_to_python_compiler#readme",
+  "dependencies": {
+    "jison": "^0.4.18"
+  }
+}
