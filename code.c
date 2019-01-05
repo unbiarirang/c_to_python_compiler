@@ -4,7 +4,7 @@
 int test(char* s, int len) {
     int i = 0;
 	int j = len;
-    len--;
+    j--;
     while (i < j) {
         if (s[i] != s[j]) {
 			return 0;
@@ -20,10 +20,10 @@ int main() {
     printf("Enter the string to test: ");
     scanf("%s", s);
     if (test(s, strlen(s))) {
-		printf("true");
+		printf("True");
     }
     else {
-		printf("false");
+		printf("False");
     }
     return 0;
 }

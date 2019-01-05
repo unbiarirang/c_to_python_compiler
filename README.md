@@ -13,3 +13,9 @@ c to python javascript compiler
 
 #### tips:
 you can install bison extension for sytax highlighting.
+
+#### test:
+```node test.js code.c```
+
+#### reference:
+https://github.com/jamiebuilds/the-super-tiny-compiler

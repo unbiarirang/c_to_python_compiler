@@ -557,9 +557,15 @@ function parser(tokens) {
             }
 
             if (token.value === '++')
-              node.op = '+';
+              node.op = {
+                type: 'Operator',
+                value: '+='
+              }
             else if (token.value === '--')
-              node.op = '-';
+              node.op = {
+                type: 'Operator',
+                value: '-='
+              }
 
             current++;
           }
@@ -767,12 +773,15 @@ function traverser(ast, visitor) {
         traverseNode(node.dest, node);
         traverseNode(node.src, node);
 
+      case 'OpExpression':
+        traverseNode(node.left, node);
+        traverseNode(node.right, node);
+
       // In the cases of `NumberLiteral` and `StringLiteral` we don't have any
       // child nodes to visit, so we'll just break.
       case 'NumberLiteral':
       case 'StringLiteral':
       case 'Variable':
-      case 'Semicolon':
         break;
 
       // And again, if we haven't recognized the node type then we'll throw an
@@ -869,29 +878,38 @@ function transformer(ast) {
       enter(node, parent) {
         // We'll create a new node also named `NumberLiteral` that we will push to
         // the parent context.
-        // parent._context.push({
-        //   type: 'NumberLiteral',
-        //   value: node.value,
-        // });
+         if (parent._context) parent._context.push(node);
       },
     },
 
     // Next we have `StringLiteral`
     StringLiteral: {
       enter(node, parent) {
-        // parent._context.push({
-        //   type: 'StringLiteral',
-        //   value: node.value,
-        // });
+        parent._context.push(node);
       },
     },
 
     Variable: {
       enter(node, parent) {
-        // parent._context.push({
-        //   type: 'Variable',
-        //   name: node.name,
-        // });
+        let vartype;
+        if (['int', 'double', 'float'].indexOf(node.vartype) >= 0)
+          vartype = 'Number';
+        else if (['char', 'char*'].indexOf(node.vartype) >= 0)
+          vartype = 'String';
+
+        let new_node = {
+          type: 'Variable',
+          name: node.name,
+          vartype: vartype ? vartype : null,
+          value: node.value ? node.value : null
+        };
+        if (parent._context) parent._context.push(new_node);
+      },
+    },
+
+    OpExpression: {
+      enter(node, parent) {
+         parent._context.push(node);
       },
     },
 
@@ -993,6 +1011,11 @@ function codeGenerator(node) {
         ')'
       );
 
+    case 'OpExpression':
+      return (
+        codeGenerator(node.left) + ' ' + codeGenerator(node.op) + ' '
+        + codeGenerator(node.right)
+      );
     case 'DefExpression':
       return (
         codeGenerator(node.dest) + ' = ' + codeGenerator(node.src)
@@ -1005,6 +1028,7 @@ function codeGenerator(node) {
 
     // For `NumberLiteral` we'll just return the `node`'s value.
     case 'NumberLiteral':
+    case 'Operator':
       return node.value;
 
     // For `StringLiteral` we'll add quotations around the `node`'s value.
@@ -1092,7 +1116,7 @@ int main() {
 `;
 let input2 = 'int i = 0; int j = i;';
 let input3 = 'int main(int x, int y) { int a = 1; int b = 2; }';
-let input4 = 'printf("The string is palindromic.\n");';
+let input4 = 'printf("hello, world");';
 let input5 = 'add(1, 2);';
 let input6 = 'char s[200];';
 let input7 = 'i++; j--;'
