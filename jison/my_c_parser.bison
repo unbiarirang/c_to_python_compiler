@@ -294,8 +294,8 @@ expression
 	;
 
 assignment_expression
-	: logical_expression                                           { $$ = {type: "assignment expression", logicalExpr: $1, unaryExpr: null, assignOp: null, assginExpr: null}; }
-	| unary_expression assignment_operator assignment_expression   { $$ = {type: "assignment expression", logicalExpr: null, unaryExpr: $1, assignOp: $2, assginExpr: $3}; }
+	: logical_expression                                           { $$ = {type: "assignment expression", logicalExpr: $1, unaryExpr: null, assignOp: null, assignExpr: null}; }
+	| unary_expression assignment_operator assignment_expression   { $$ = {type: "assignment expression", logicalExpr: null, unaryExpr: $1, assignOp: $2, assignExpr: $3}; }
 	;
 
 assignment_operator

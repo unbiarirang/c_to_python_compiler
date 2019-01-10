@@ -154,7 +154,7 @@ Nodes:
 
 // bit operation expression node
 //     => (equality expression)
-// or  => (bit operation expression) (operator) (equality expression)
+//  or => (bit operation expression) (operator) (equality expression)
 {
     type: "bit operation expression"
     bitOpExpr: {}  ,   // null or another bit operation expression node (recursive)

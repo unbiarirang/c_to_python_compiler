@@ -10,8 +10,8 @@
           "type": "parameter declaration",
           "declaredType": "char",
           "name": "s",
-          "isArray": true,
-          "isPointer": false
+          "isArray": false,
+          "isPointer": true
         },
         {
           "type": "parameter declaration",
@@ -84,7 +84,7 @@
               },
               "unaryExpr": null,
               "assignOp": null,
-              "assginExpr": null
+              "assignExpr": null
             }
           },
           {
@@ -147,7 +147,7 @@
               },
               "unaryExpr": null,
               "assignOp": null,
-              "assginExpr": null
+              "assignExpr": null
             }
           }
         ],
@@ -197,7 +197,7 @@
                                         "type": "postfix expression",
                                         "primaryExpr": {
                                           "expr": null,
-                                          "value": "len"
+                                          "value": "i"
                                         },
                                         "postfixExpr": null,
                                         "expr": null,
@@ -224,7 +224,7 @@
                     },
                     "unaryExpr": null,
                     "assignOp": null,
-                    "assginExpr": null
+                    "assignExpr": null
                   }
                 ]
               }
@@ -332,7 +332,7 @@
                       },
                       "unaryExpr": null,
                       "assignOp": null,
-                      "assginExpr": null
+                      "assignExpr": null
                     }
                   ]
                 }
@@ -458,7 +458,7 @@
                                                         },
                                                         "unaryExpr": null,
                                                         "assignOp": null,
-                                                        "assginExpr": null
+                                                        "assignExpr": null
                                                       }
                                                     ]
                                                   },
@@ -567,7 +567,7 @@
                                                       },
                                                       "unaryExpr": null,
                                                       "assignOp": null,
-                                                      "assginExpr": null
+                                                      "assignExpr": null
                                                     }
                                                   ]
                                                 },
@@ -589,7 +589,7 @@
                               },
                               "unaryExpr": null,
                               "assignOp": null,
-                              "assginExpr": null
+                              "assignExpr": null
                             }
                           ]
                         },
@@ -665,7 +665,7 @@
                                         },
                                         "unaryExpr": null,
                                         "assignOp": null,
-                                        "assginExpr": null
+                                        "assignExpr": null
                                       }
                                     ]
                                   }
@@ -749,7 +749,7 @@
                               },
                               "unaryExpr": null,
                               "assignOp": null,
-                              "assginExpr": null
+                              "assignExpr": null
                             }
                           ]
                         }
@@ -827,7 +827,7 @@
                               },
                               "unaryExpr": null,
                               "assignOp": null,
-                              "assginExpr": null
+                              "assignExpr": null
                             }
                           ]
                         }
@@ -903,7 +903,7 @@
                     },
                     "unaryExpr": null,
                     "assignOp": null,
-                    "assginExpr": null
+                    "assignExpr": null
                   }
                 ]
               }
@@ -928,6 +928,166 @@
           }
         ],
         "statements": [
+          {
+            "type": "statement",
+            "statementType": "expression",
+            "subStatement": {
+              "type": "expression statement",
+              "expr": {
+                "type": "expression",
+                "assignExprs": [
+                  {
+                    "type": "assignment expression",
+                    "logicalExpr": null,
+                    "unaryExpr": {
+                      "type": "unary expression",
+                      "postfixExpr": {
+                        "type": "postfix expression",
+                        "primaryExpr": {
+                          "expr": null,
+                          "value": "i"
+                        },
+                        "postfixExpr": null,
+                        "expr": null,
+                        "identifier": null,
+                        "op": null,
+                        "arguments": null
+                      },
+                      "op": "null",
+                      "unaryExpr": null
+                    },
+                    "assignOp": "=",
+                    "assignExpr": {
+                      "type": "assignment expression",
+                      "logicalExpr": {
+                        "type": "logical expression",
+                        "bitOpExpr": {
+                          "type": "bit operation expression",
+                          "bitOpExpr": null,
+                          "op": null,
+                          "equalityExpr": {
+                            "type": "equality expression",
+                            "equalityExpr": null,
+                            "op": null,
+                            "relationalExpr": {
+                              "type": "relational expression",
+                              "relationalExpr": null,
+                              "op": null,
+                              "shiftExpr": {
+                                "type": "shift expression",
+                                "shiftExpr": null,
+                                "op": null,
+                                "additiveExpr": {
+                                  "type": "additive expression",
+                                  "additiveExpr": {
+                                    "type": "additive expression",
+                                    "additiveExpr": null,
+                                    "op": null,
+                                    "multiplicativeExpr": {
+                                      "type": "multiplicative expression",
+                                      "multiplicativeExpr": null,
+                                      "op": null,
+                                      "unaryExpr": {
+                                        "type": "unary expression",
+                                        "postfixExpr": {
+                                          "type": "postfix expression",
+                                          "primaryExpr": {
+                                            "expr": null,
+                                            "value": "printf"
+                                          },
+                                          "postfixExpr": null,
+                                          "expr": null,
+                                          "identifier": null,
+                                          "op": null,
+                                          "arguments": null
+                                        },
+                                        "op": "null",
+                                        "unaryExpr": null
+                                      }
+                                    }
+                                  },
+                                  "op": "+",
+                                  "multiplicativeExpr": {
+                                    "type": "multiplicative expression",
+                                    "multiplicativeExpr": {
+                                      "type": "multiplicative expression",
+                                      "multiplicativeExpr": {
+                                        "type": "multiplicative expression",
+                                        "multiplicativeExpr": null,
+                                        "op": null,
+                                        "unaryExpr": {
+                                          "type": "unary expression",
+                                          "postfixExpr": {
+                                            "type": "postfix expression",
+                                            "primaryExpr": {
+                                              "expr": null,
+                                              "value": "3"
+                                            },
+                                            "postfixExpr": null,
+                                            "expr": null,
+                                            "identifier": null,
+                                            "op": null,
+                                            "arguments": null
+                                          },
+                                          "op": "null",
+                                          "unaryExpr": null
+                                        }
+                                      },
+                                      "op": "*",
+                                      "unaryExpr": {
+                                        "type": "unary expression",
+                                        "postfixExpr": {
+                                          "type": "postfix expression",
+                                          "primaryExpr": {
+                                            "expr": null,
+                                            "value": "8"
+                                          },
+                                          "postfixExpr": null,
+                                          "expr": null,
+                                          "identifier": null,
+                                          "op": null,
+                                          "arguments": null
+                                        },
+                                        "op": "null",
+                                        "unaryExpr": null
+                                      }
+                                    },
+                                    "op": "/",
+                                    "unaryExpr": {
+                                      "type": "unary expression",
+                                      "postfixExpr": {
+                                        "type": "postfix expression",
+                                        "primaryExpr": {
+                                          "expr": null,
+                                          "value": "5"
+                                        },
+                                        "postfixExpr": null,
+                                        "expr": null,
+                                        "identifier": null,
+                                        "op": null,
+                                        "arguments": null
+                                      },
+                                      "op": "null",
+                                      "unaryExpr": null
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "op": null,
+                        "logicalExpr": null
+                      },
+                      "unaryExpr": null,
+                      "assignOp": null,
+                      "assignExpr": null
+                    }
+                  }
+                ]
+              }
+            }
+          },
           {
             "type": "statement",
             "statementType": "expression",
@@ -1041,7 +1201,7 @@
                                           },
                                           "unaryExpr": null,
                                           "assignOp": null,
-                                          "assginExpr": null
+                                          "assignExpr": null
                                         }
                                       ]
                                     },
@@ -1059,7 +1219,7 @@
                     },
                     "unaryExpr": null,
                     "assignOp": null,
-                    "assginExpr": null
+                    "assignExpr": null
                   }
                 ]
               }
@@ -1178,7 +1338,7 @@
                                           },
                                           "unaryExpr": null,
                                           "assignOp": null,
-                                          "assginExpr": null
+                                          "assignExpr": null
                                         },
                                         {
                                           "type": "assignment expression",
@@ -1236,7 +1396,7 @@
                                           },
                                           "unaryExpr": null,
                                           "assignOp": null,
-                                          "assginExpr": null
+                                          "assignExpr": null
                                         }
                                       ]
                                     },
@@ -1254,7 +1414,7 @@
                     },
                     "unaryExpr": null,
                     "assignOp": null,
-                    "assginExpr": null
+                    "assignExpr": null
                   }
                 ]
               }
@@ -1373,7 +1533,7 @@
                                           },
                                           "unaryExpr": null,
                                           "assignOp": null,
-                                          "assginExpr": null
+                                          "assignExpr": null
                                         },
                                         {
                                           "type": "assignment expression",
@@ -1480,7 +1640,7 @@
                                                                 },
                                                                 "unaryExpr": null,
                                                                 "assignOp": null,
-                                                                "assginExpr": null
+                                                                "assignExpr": null
                                                               }
                                                             ]
                                                           },
@@ -1498,7 +1658,7 @@
                                           },
                                           "unaryExpr": null,
                                           "assignOp": null,
-                                          "assginExpr": null
+                                          "assignExpr": null
                                         }
                                       ]
                                     },
@@ -1516,7 +1676,7 @@
                     },
                     "unaryExpr": null,
                     "assignOp": null,
-                    "assginExpr": null
+                    "assignExpr": null
                   }
                 ]
               },
@@ -1640,7 +1800,7 @@
                                                     },
                                                     "unaryExpr": null,
                                                     "assignOp": null,
-                                                    "assginExpr": null
+                                                    "assignExpr": null
                                                   }
                                                 ]
                                               },
@@ -1658,7 +1818,7 @@
                               },
                               "unaryExpr": null,
                               "assignOp": null,
-                              "assginExpr": null
+                              "assignExpr": null
                             }
                           ]
                         }
@@ -1787,7 +1947,7 @@
                                                     },
                                                     "unaryExpr": null,
                                                     "assignOp": null,
-                                                    "assginExpr": null
+                                                    "assignExpr": null
                                                   }
                                                 ]
                                               },
@@ -1805,7 +1965,7 @@
                               },
                               "unaryExpr": null,
                               "assignOp": null,
-                              "assginExpr": null
+                              "assignExpr": null
                             }
                           ]
                         }
@@ -1881,7 +2041,7 @@
                     },
                     "unaryExpr": null,
                     "assignOp": null,
-                    "assginExpr": null
+                    "assignExpr": null
                   }
                 ]
               }

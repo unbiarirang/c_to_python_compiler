@@ -186,10 +186,10 @@ case 55:
  $$[$0-2].assignExprs.push($$[$0]); this.$ = $$[$0-2]; 
 break;
 case 56:
- this.$ = {type: "assignment expression", logicalExpr: $$[$0], unaryExpr: null, assignOp: null, assginExpr: null}; 
+ this.$ = {type: "assignment expression", logicalExpr: $$[$0], unaryExpr: null, assignOp: null, assignExpr: null}; 
 break;
 case 57:
- this.$ = {type: "assignment expression", logicalExpr: null, unaryExpr: $$[$0-2], assignOp: $$[$0-1], assginExpr: $$[$0]}; 
+ this.$ = {type: "assignment expression", logicalExpr: null, unaryExpr: $$[$0-2], assignOp: $$[$0-1], assignExpr: $$[$0]}; 
 break;
 case 58: case 63:
  this.$ = "="; 
