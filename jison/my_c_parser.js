@@ -84,12 +84,12 @@ performAction: function anonymous(yytext, yyleng, yylineno, yy, yystate /* actio
 var $0 = $$.length - 1;
 switch (yystate) {
 case 1:
- return {function_definitions: $$[$0]}
+ return {type: "program", functionDefinitions: $$[$0]}
 break;
-case 2: case 20:
+case 2: case 20: case 112:
  this.$ = [$$[$0]]; 
 break;
-case 3:
+case 3: case 29: case 47:
  $$[$0-1].push($$[$0]); this.$ = $$[$0-1]; 
 break;
 case 4:
@@ -104,38 +104,221 @@ break;
 case 10: case 11: case 12: case 13: case 14: case 15: case 16: case 17: case 18: case 19:
  this.$ = {vartype: yytext};
 break;
-case 21:
+case 21: case 113:
  $$[$0-2].push($$[$0]); this.$ = $$[$0-2]; 
 break;
-case 22: case 23: case 53: case 55: case 56:
+case 22: case 23:
  this.$ = {}; 
 break;
-case 24: case 28:
- this.$ = []; 
+case 24:
+ this.$ = {type: "compound statement", declarations: [], statements: []}; 
 break;
-case 25: case 26: case 29:
- this.$ = $$[$0-1]; 
+case 25:
+ this.$ = {type: "compound statement", declarations: [], statements: $$[$0-1]}; 
+break;
+case 26:
+ this.$ = {type: "compound statement", declarations: $$[$0-1], statements: []}; 
 break;
 case 27:
- $$[$0-2].push($$[$0-1]); this.$ = $$[$0-2]; 
+ this.$ = {type: "compound statement", declarations: $$[$0-2], statements: $$[$0-1]}; 
+break;
+case 28:
+ this.$ = []; 
+break;
+case 46:
+ this.$ = [$$[$0]]
 break;
 case 48:
- this.$ = {statType: 'compound', stats: $$[$0]}; 
+ this.$ = {type: "statement", statementType: "compound", subStatement: $$[$0]}; 
 break;
 case 49:
- this.$ = {statType: 'expression', exprs: [$$[$0]]}; 
+ this.$ = {type: "statement", statementType: "expression", subStatement: $$[$0]}; 
 break;
 case 50:
- this.$ = {statType: 'selection', stats: $$[$0]}; 
+ this.$ = {type: "statement", statementType: "selection", subStatement: $$[$0]}; 
 break;
 case 51:
- this.$ = {statType: $$[$0].statType, stats: [$$[$0].stat], exprs: $$[$0].exprs}; 
+ this.$ = {type: "statement", statementType: "iteration", subStatement: $$[$0]}; 
 break;
 case 52:
- this.$ = {statType: $$[$0].statType, exprs: $$[$0].exprs}; 
+ this.$ = {type: "statement", statementType: "jump", subStatement: $$[$0]}; 
+break;
+case 53:
+ this.$ = {type: "expression statement", expr: null};
 break;
 case 54:
- this.$ = {expr: $$[$0-1]}; 
+ this.$ = {type: "expression statement", expr: $$[$0-1]}; 
+break;
+case 55:
+ this.$ = {type: "expression", assignExprs: [$$[$0]]}; 
+break;
+case 56:
+ $$[$0-2].assignExprs.push($$[$0]); this.$ = $$[$0-2]; 
+break;
+case 57:
+ this.$ = {type: "assignment expression", logicalExpr: $$[$0], unaryExpr: null, assignOp: null, assginExpr: null}; 
+break;
+case 58:
+ this.$ = {type: "assignment expression", logicalExpr: null, unaryExpr: $$[$0-2], assignOp: $$[$0-1], assginExpr: $$[$0]}; 
+break;
+case 59: case 64:
+ this.$ = "="; 
+break;
+case 60:
+ this.$ = "*="; 
+break;
+case 61:
+ this.$ = "/="; 
+break;
+case 62:
+ this.$ = "%="; 
+break;
+case 63:
+ this.$ = "+="; 
+break;
+case 65:
+ this.$ = "<<="; 
+break;
+case 66:
+ this.$ = ">>="; 
+break;
+case 67:
+ this.$ = "&="; 
+break;
+case 68:
+ this.$ = "^="; 
+break;
+case 69:
+ this.$ = "|="; 
+break;
+case 70:
+ this.$ = {type: "logical expression", bitOpExpr: $$[$0], op: null, logicalExpr: null}; 
+break;
+case 71:
+ this.$ = {type: "logical expression", bitOpExpr: $$[$0], op: "&&", logicalExpr: $$[$0-2]}; 
+break;
+case 72:
+ this.$ = {type: "logical expression", bitOpExpr: $$[$0], op: "||", logicalExpr: $$[$0-2]}; 
+break;
+case 73:
+ this.$ = {type: "bit operation expression", bitOpExpr: null, op: null, equalityExpr: $$[$0]}; 
+break;
+case 74:
+ this.$ = {type: "bit operation expression", bitOpExpr: $$[$0-2], op: "|", equalityExpr: $$[$0]}; 
+break;
+case 75:
+ this.$ = {type: "bit operation expression", bitOpExpr: $$[$0-2], op: "&", equalityExpr: $$[$0]}; 
+break;
+case 76:
+ this.$ = {type: "bit operation expression", bitOpExpr: $$[$0-2], op: "^", equalityExpr: $$[$0]}; 
+break;
+case 77:
+ this.$ = {type: "equality expression", equalityExpr: null, op: null, relationalExpr: $$[$0]}; 
+break;
+case 78:
+ this.$ = {type: "equality expression", equalityExpr: $$[$0-2], op: "==", relationalExpr: $$[$0]}; 
+break;
+case 79:
+ this.$ = {type: "equality expression", equalityExpr: $$[$0-2], op: "!=", relationalExpr: $$[$0]}; 
+break;
+case 80:
+ this.$ = {type: "relational expression", relationalExpr: null, op: null, shiftExpr: $$[$0]}; 
+break;
+case 81:
+ this.$ = {type: "relational expression", relationalExpr: $$[$0-2], op: "<", shiftExpr: $$[$0]}; 
+break;
+case 82:
+ this.$ = {type: "relational expression", relationalExpr: $$[$0-2], op: ">", shiftExpr: $$[$0]}; 
+break;
+case 83:
+ this.$ = {type: "relational expression", relationalExpr: $$[$0-2], op: "<=", shiftExpr: $$[$0]}; 
+break;
+case 84:
+ this.$ = {type: "relational expression", relationalExpr: $$[$0-2], op: ">=", shiftExpr: $$[$0]}; 
+break;
+case 85:
+ this.$ = {type: "shift expression", shiftExpr: null, op: null, additiveExpr: $$[$0]}; 
+break;
+case 86:
+ this.$ = {type: "shift expression", shiftExpr: $$[$0-2], op: "<<", additiveExpr: $$[$0]}; 
+break;
+case 87:
+ this.$ = {type: "shift expression", shiftExpr: $$[$0-2], op: ">>", additiveExpr: $$[$0]}; 
+break;
+case 88:
+ this.$ = {type: "additive expression", additiveExpr: null, op: null, multiplicativeExpr: $$[$0]}; 
+break;
+case 89:
+ this.$ = {type: "additive expression", additiveExpr: $$[$0-2], op: "+", multiplicativeExpr: $$[$0]}; 
+break;
+case 90:
+ this.$ = {type: "additive expression", additiveExpr: $$[$0-2], op: "-", multiplicativeExpr: $$[$0]}; 
+break;
+case 91:
+ this.$ = {type: "multiplicative expression", multiplicativeExpr: null, op: null, unaryExpr: $$[$0]}; 
+break;
+case 92:
+ this.$ = {type: "multiplicative expression", multiplicativeExpr: $$[$0-2], op: "*", unaryExpr: $$[$0]}; 
+break;
+case 93:
+ this.$ = {type: "multiplicative expression", multiplicativeExpr: $$[$0-2], op: "/", unaryExpr: $$[$0]}; 
+break;
+case 94:
+ this.$ = {type: "multiplicative expression", multiplicativeExpr: $$[$0-2], op: "%", unaryExpr: $$[$0]}; 
+break;
+case 95:
+ this.$ = {type: "unary expression", postfixExpr: $$[$0], op: "null",unaryExpr: null}; 
+break;
+case 96:
+ this.$ = {type: "unary expression", postfixExpr: null, op: "++", unaryExpr: $$[$0]}; 
+break;
+case 97:
+ this.$ = {type: "unary expression", postfixExpr: null, op: "--", unaryExpr: $$[$0]}; 
+break;
+case 98:
+ this.$ = {type: "unary expression", postfixExpr: null, op: "&", unaryExpr: $$[$0]}; 
+break;
+case 99:
+ this.$ = {type: "unary expression", postfixExpr: null, op: "*", unaryExpr: $$[$0]}; 
+break;
+case 100:
+ this.$ = {type: "unary expression", postfixExpr: null, op: "+", unaryExpr: $$[$0]}; 
+break;
+case 101:
+ this.$ = {type: "unary expression", postfixExpr: null, op: "-", unaryExpr: $$[$0]}; 
+break;
+case 102:
+ this.$ = {type: "unary expression", postfixExpr: null, op: "~", unaryExpr: $$[$0]}; 
+break;
+case 103:
+ this.$ = {type: "unary expression", postfixExpr: null, op: "!", unaryExpr: $$[$0]}; 
+break;
+case 104:
+ this.$ = {type: "postfix expression", primaryExpr: $$[$0], postfixExpr: null, expr: null, identifier: null, op: null, arguments: null}; 
+break;
+case 105:
+ this.$ = {type: "postfix expression", primaryExpr: null, postfixExpr: $$[$0-3], expr: $$[$0-1], identifier: null, op: null, arguments: null}; 
+break;
+case 106:
+ this.$ = {type: "postfix expression", primaryExpr: null, postfixExpr: $$[$0-2], expr: null, identifier: null, op: null, arguments: null}; 
+break;
+case 107:
+ this.$ = {type: "postfix expression", primaryExpr: null, postfixExpr: $$[$0-3], expr: null, identifier: null, op: null, arguments: $$[$0-1]}; 
+break;
+case 108: case 109:
+ this.$ = {type: "postfix expression", primaryExpr: null, postfixExpr: $$[$0-2], expr: null, identifier: $$[$0], op: null, arguments: null}; 
+break;
+case 110:
+ this.$ = {type: "postfix expression", primaryExpr: null, postfixExpr: $$[$0-1], expr: null, identifier: null, op: "++", arguments: null}; 
+break;
+case 111:
+ this.$ = {type: "postfix expression", primaryExpr: null, postfixExpr: $$[$0-1], expr: null, identifier: null, op: "--", arguments: null}; 
+break;
+case 114: case 115: case 116:
+ this.$ = {expr: null, value: yytext}; 
+break;
+case 117:
+ this.$ = {expr: $$[$0-1], value: null}; 
 break;
 case 118:
  this.$ = [$$[$0-2], $$[$0]];
@@ -885,9 +1068,7 @@ exports.main = function commonjsMain (args) {
         process.exit(1);
     }
     var source = require('fs').readFileSync(require('path').normalize(args[1]), "utf8");
-    temp = exports.parser.parse(source);
-    console.log(temp);
-    return temp;
+    return exports.parser.parse(source);
 };
 if (typeof module !== 'undefined' && require.main === module) {
   exports.main(process.argv.slice(1));

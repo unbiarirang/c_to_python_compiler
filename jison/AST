@@ -1,0 +1,1454 @@
+{
+    "type": "program",
+    "functionDefinitions": [
+        {
+            "returnType": "int",
+            "funcName": "test",
+            "params": [
+                {},
+                {}
+            ],
+            "statements": {
+                "type": "compound statement",
+                "declarations": [
+                    {
+                        "vartype": "int"
+                    }
+                ],
+                "statements": [
+                    {
+                        "type": "statement",
+                        "statementType": "expression",
+                        "subStatement": {
+                            "type": "expression statement",
+                            "expr": {
+                                "type": "expression",
+                                "assignExprs": [
+                                    {
+                                        "type": "assignment expression",
+                                        "logicalExpr": {
+                                            "type": "logical expression",
+                                            "bitOpExpr": {
+                                                "type": "bit operation expression",
+                                                "bitOpExpr": null,
+                                                "op": null,
+                                                "equalityExpr": {
+                                                    "type": "equality expression",
+                                                    "equalityExpr": null,
+                                                    "op": null,
+                                                    "relationalExpr": {
+                                                        "type": "relational expression",
+                                                        "relationalExpr": null,
+                                                        "op": null,
+                                                        "shiftExpr": {
+                                                            "type": "shift expression",
+                                                            "shiftExpr": null,
+                                                            "op": null,
+                                                            "additiveExpr": {
+                                                                "type": "additive expression",
+                                                                "additiveExpr": null,
+                                                                "op": null,
+                                                                "multiplicativeExpr": {
+                                                                    "type": "multiplicative expression",
+                                                                    "multiplicativeExpr": null,
+                                                                    "op": null,
+                                                                    "unaryExpr": {
+                                                                        "type": "unary expression",
+                                                                        "postfixExpr": {
+                                                                            "type": "postfix expression",
+                                                                            "primaryExpr": null,
+                                                                            "postfixExpr": {
+                                                                                "type": "postfix expression",
+                                                                                "primaryExpr": {
+                                                                                    "expr": null,
+                                                                                    "value": "len"
+                                                                                },
+                                                                                "postfixExpr": null,
+                                                                                "expr": null,
+                                                                                "identifier": null,
+                                                                                "op": null,
+                                                                                "arguments": null
+                                                                            },
+                                                                            "expr": null,
+                                                                            "identifier": null,
+                                                                            "op": "--",
+                                                                            "arguments": null
+                                                                        },
+                                                                        "op": "null",
+                                                                        "unaryExpr": null
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            },
+                                            "op": null,
+                                            "logicalExpr": null
+                                        },
+                                        "unaryExpr": null,
+                                        "assignOp": null,
+                                        "assginExpr": null
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "type": "statement",
+                        "statementType": "iteration",
+                        "subStatement": {
+                            "statType": "while",
+                            "exprs": [
+                                {
+                                    "type": "expression",
+                                    "assignExprs": [
+                                        {
+                                            "type": "assignment expression",
+                                            "logicalExpr": {
+                                                "type": "logical expression",
+                                                "bitOpExpr": {
+                                                    "type": "bit operation expression",
+                                                    "bitOpExpr": null,
+                                                    "op": null,
+                                                    "equalityExpr": {
+                                                        "type": "equality expression",
+                                                        "equalityExpr": null,
+                                                        "op": null,
+                                                        "relationalExpr": {
+                                                            "type": "relational expression",
+                                                            "relationalExpr": {
+                                                                "type": "relational expression",
+                                                                "relationalExpr": null,
+                                                                "op": null,
+                                                                "shiftExpr": {
+                                                                    "type": "shift expression",
+                                                                    "shiftExpr": null,
+                                                                    "op": null,
+                                                                    "additiveExpr": {
+                                                                        "type": "additive expression",
+                                                                        "additiveExpr": null,
+                                                                        "op": null,
+                                                                        "multiplicativeExpr": {
+                                                                            "type": "multiplicative expression",
+                                                                            "multiplicativeExpr": null,
+                                                                            "op": null,
+                                                                            "unaryExpr": {
+                                                                                "type": "unary expression",
+                                                                                "postfixExpr": {
+                                                                                    "type": "postfix expression",
+                                                                                    "primaryExpr": {
+                                                                                        "expr": null,
+                                                                                        "value": "i"
+                                                                                    },
+                                                                                    "postfixExpr": null,
+                                                                                    "expr": null,
+                                                                                    "identifier": null,
+                                                                                    "op": null,
+                                                                                    "arguments": null
+                                                                                },
+                                                                                "op": "null",
+                                                                                "unaryExpr": null
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            },
+                                                            "op": "<",
+                                                            "shiftExpr": {
+                                                                "type": "shift expression",
+                                                                "shiftExpr": null,
+                                                                "op": null,
+                                                                "additiveExpr": {
+                                                                    "type": "additive expression",
+                                                                    "additiveExpr": null,
+                                                                    "op": null,
+                                                                    "multiplicativeExpr": {
+                                                                        "type": "multiplicative expression",
+                                                                        "multiplicativeExpr": null,
+                                                                        "op": null,
+                                                                        "unaryExpr": {
+                                                                            "type": "unary expression",
+                                                                            "postfixExpr": {
+                                                                                "type": "postfix expression",
+                                                                                "primaryExpr": {
+                                                                                    "expr": null,
+                                                                                    "value": "j"
+                                                                                },
+                                                                                "postfixExpr": null,
+                                                                                "expr": null,
+                                                                                "identifier": null,
+                                                                                "op": null,
+                                                                                "arguments": null
+                                                                            },
+                                                                            "op": "null",
+                                                                            "unaryExpr": null
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                "op": null,
+                                                "logicalExpr": null
+                                            },
+                                            "unaryExpr": null,
+                                            "assignOp": null,
+                                            "assginExpr": null
+                                        }
+                                    ]
+                                }
+                            ],
+                            "stat": {
+                                "type": "statement",
+                                "statementType": "compound",
+                                "subStatement": {
+                                    "type": "compound statement",
+                                    "declarations": [],
+                                    "statements": [
+                                        {
+                                            "type": "statement",
+                                            "statementType": "selection",
+                                            "subStatement": [
+                                                {
+                                                    "type": "expression",
+                                                    "assignExprs": [
+                                                        {
+                                                            "type": "assignment expression",
+                                                            "logicalExpr": {
+                                                                "type": "logical expression",
+                                                                "bitOpExpr": {
+                                                                    "type": "bit operation expression",
+                                                                    "bitOpExpr": null,
+                                                                    "op": null,
+                                                                    "equalityExpr": {
+                                                                        "type": "equality expression",
+                                                                        "equalityExpr": {
+                                                                            "type": "equality expression",
+                                                                            "equalityExpr": null,
+                                                                            "op": null,
+                                                                            "relationalExpr": {
+                                                                                "type": "relational expression",
+                                                                                "relationalExpr": null,
+                                                                                "op": null,
+                                                                                "shiftExpr": {
+                                                                                    "type": "shift expression",
+                                                                                    "shiftExpr": null,
+                                                                                    "op": null,
+                                                                                    "additiveExpr": {
+                                                                                        "type": "additive expression",
+                                                                                        "additiveExpr": null,
+                                                                                        "op": null,
+                                                                                        "multiplicativeExpr": {
+                                                                                            "type": "multiplicative expression",
+                                                                                            "multiplicativeExpr": null,
+                                                                                            "op": null,
+                                                                                            "unaryExpr": {
+                                                                                                "type": "unary expression",
+                                                                                                "postfixExpr": {
+                                                                                                    "type": "postfix expression",
+                                                                                                    "primaryExpr": null,
+                                                                                                    "postfixExpr": {
+                                                                                                        "type": "postfix expression",
+                                                                                                        "primaryExpr": {
+                                                                                                            "expr": null,
+                                                                                                            "value": "s"
+                                                                                                        },
+                                                                                                        "postfixExpr": null,
+                                                                                                        "expr": null,
+                                                                                                        "identifier": null,
+                                                                                                        "op": null,
+                                                                                                        "arguments": null
+                                                                                                    },
+                                                                                                    "expr": {
+                                                                                                        "type": "expression",
+                                                                                                        "assignExprs": [
+                                                                                                            {
+                                                                                                                "type": "assignment expression",
+                                                                                                                "logicalExpr": {
+                                                                                                                    "type": "logical expression",
+                                                                                                                    "bitOpExpr": {
+                                                                                                                        "type": "bit operation expression",
+                                                                                                                        "bitOpExpr": null,
+                                                                                                                        "op": null,
+                                                                                                                        "equalityExpr": {
+                                                                                                                            "type": "equality expression",
+                                                                                                                            "equalityExpr": null,
+                                                                                                                            "op": null,
+                                                                                                                            "relationalExpr": {
+                                                                                                                                "type": "relational expression",
+                                                                                                                                "relationalExpr": null,
+                                                                                                                                "op": null,
+                                                                                                                                "shiftExpr": {
+                                                                                                                                    "type": "shift expression",
+                                                                                                                                    "shiftExpr": null,
+                                                                                                                                    "op": null,
+                                                                                                                                    "additiveExpr": {
+                                                                                                                                        "type": "additive expression",
+                                                                                                                                        "additiveExpr": null,
+                                                                                                                                        "op": null,
+                                                                                                                                        "multiplicativeExpr": {
+                                                                                                                                            "type": "multiplicative expression",
+                                                                                                                                            "multiplicativeExpr": null,
+                                                                                                                                            "op": null,
+                                                                                                                                            "unaryExpr": {
+                                                                                                                                                "type": "unary expression",
+                                                                                                                                                "postfixExpr": {
+                                                                                                                                                    "type": "postfix expression",
+                                                                                                                                                    "primaryExpr": {
+                                                                                                                                                        "expr": null,
+                                                                                                                                                        "value": "i"
+                                                                                                                                                    },
+                                                                                                                                                    "postfixExpr": null,
+                                                                                                                                                    "expr": null,
+                                                                                                                                                    "identifier": null,
+                                                                                                                                                    "op": null,
+                                                                                                                                                    "arguments": null
+                                                                                                                                                },
+                                                                                                                                                "op": "null",
+                                                                                                                                                "unaryExpr": null
+                                                                                                                                            }
+                                                                                                                                        }
+                                                                                                                                    }
+                                                                                                                                }
+                                                                                                                            }
+                                                                                                                        }
+                                                                                                                    },
+                                                                                                                    "op": null,
+                                                                                                                    "logicalExpr": null
+                                                                                                                },
+                                                                                                                "unaryExpr": null,
+                                                                                                                "assignOp": null,
+                                                                                                                "assginExpr": null
+                                                                                                            }
+                                                                                                        ]
+                                                                                                    },
+                                                                                                    "identifier": null,
+                                                                                                    "op": null,
+                                                                                                    "arguments": null
+                                                                                                },
+                                                                                                "op": "null",
+                                                                                                "unaryExpr": null
+                                                                                            }
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        },
+                                                                        "op": "!=",
+                                                                        "relationalExpr": {
+                                                                            "type": "relational expression",
+                                                                            "relationalExpr": null,
+                                                                            "op": null,
+                                                                            "shiftExpr": {
+                                                                                "type": "shift expression",
+                                                                                "shiftExpr": null,
+                                                                                "op": null,
+                                                                                "additiveExpr": {
+                                                                                    "type": "additive expression",
+                                                                                    "additiveExpr": null,
+                                                                                    "op": null,
+                                                                                    "multiplicativeExpr": {
+                                                                                        "type": "multiplicative expression",
+                                                                                        "multiplicativeExpr": null,
+                                                                                        "op": null,
+                                                                                        "unaryExpr": {
+                                                                                            "type": "unary expression",
+                                                                                            "postfixExpr": {
+                                                                                                "type": "postfix expression",
+                                                                                                "primaryExpr": null,
+                                                                                                "postfixExpr": {
+                                                                                                    "type": "postfix expression",
+                                                                                                    "primaryExpr": {
+                                                                                                        "expr": null,
+                                                                                                        "value": "s"
+                                                                                                    },
+                                                                                                    "postfixExpr": null,
+                                                                                                    "expr": null,
+                                                                                                    "identifier": null,
+                                                                                                    "op": null,
+                                                                                                    "arguments": null
+                                                                                                },
+                                                                                                "expr": {
+                                                                                                    "type": "expression",
+                                                                                                    "assignExprs": [
+                                                                                                        {
+                                                                                                            "type": "assignment expression",
+                                                                                                            "logicalExpr": {
+                                                                                                                "type": "logical expression",
+                                                                                                                "bitOpExpr": {
+                                                                                                                    "type": "bit operation expression",
+                                                                                                                    "bitOpExpr": null,
+                                                                                                                    "op": null,
+                                                                                                                    "equalityExpr": {
+                                                                                                                        "type": "equality expression",
+                                                                                                                        "equalityExpr": null,
+                                                                                                                        "op": null,
+                                                                                                                        "relationalExpr": {
+                                                                                                                            "type": "relational expression",
+                                                                                                                            "relationalExpr": null,
+                                                                                                                            "op": null,
+                                                                                                                            "shiftExpr": {
+                                                                                                                                "type": "shift expression",
+                                                                                                                                "shiftExpr": null,
+                                                                                                                                "op": null,
+                                                                                                                                "additiveExpr": {
+                                                                                                                                    "type": "additive expression",
+                                                                                                                                    "additiveExpr": null,
+                                                                                                                                    "op": null,
+                                                                                                                                    "multiplicativeExpr": {
+                                                                                                                                        "type": "multiplicative expression",
+                                                                                                                                        "multiplicativeExpr": null,
+                                                                                                                                        "op": null,
+                                                                                                                                        "unaryExpr": {
+                                                                                                                                            "type": "unary expression",
+                                                                                                                                            "postfixExpr": {
+                                                                                                                                                "type": "postfix expression",
+                                                                                                                                                "primaryExpr": {
+                                                                                                                                                    "expr": null,
+                                                                                                                                                    "value": "j"
+                                                                                                                                                },
+                                                                                                                                                "postfixExpr": null,
+                                                                                                                                                "expr": null,
+                                                                                                                                                "identifier": null,
+                                                                                                                                                "op": null,
+                                                                                                                                                "arguments": null
+                                                                                                                                            },
+                                                                                                                                            "op": "null",
+                                                                                                                                            "unaryExpr": null
+                                                                                                                                        }
+                                                                                                                                    }
+                                                                                                                                }
+                                                                                                                            }
+                                                                                                                        }
+                                                                                                                    }
+                                                                                                                },
+                                                                                                                "op": null,
+                                                                                                                "logicalExpr": null
+                                                                                                            },
+                                                                                                            "unaryExpr": null,
+                                                                                                            "assignOp": null,
+                                                                                                            "assginExpr": null
+                                                                                                        }
+                                                                                                    ]
+                                                                                                },
+                                                                                                "identifier": null,
+                                                                                                "op": null,
+                                                                                                "arguments": null
+                                                                                            },
+                                                                                            "op": "null",
+                                                                                            "unaryExpr": null
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                },
+                                                                "op": null,
+                                                                "logicalExpr": null
+                                                            },
+                                                            "unaryExpr": null,
+                                                            "assignOp": null,
+                                                            "assginExpr": null
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "type": "statement",
+                                                    "statementType": "compound",
+                                                    "subStatement": {
+                                                        "type": "compound statement",
+                                                        "declarations": [],
+                                                        "statements": [
+                                                            {
+                                                                "type": "statement",
+                                                                "statementType": "jump",
+                                                                "subStatement": {
+                                                                    "statType": "return",
+                                                                    "exprs": [
+                                                                        {
+                                                                            "type": "expression",
+                                                                            "assignExprs": [
+                                                                                {
+                                                                                    "type": "assignment expression",
+                                                                                    "logicalExpr": {
+                                                                                        "type": "logical expression",
+                                                                                        "bitOpExpr": {
+                                                                                            "type": "bit operation expression",
+                                                                                            "bitOpExpr": null,
+                                                                                            "op": null,
+                                                                                            "equalityExpr": {
+                                                                                                "type": "equality expression",
+                                                                                                "equalityExpr": null,
+                                                                                                "op": null,
+                                                                                                "relationalExpr": {
+                                                                                                    "type": "relational expression",
+                                                                                                    "relationalExpr": null,
+                                                                                                    "op": null,
+                                                                                                    "shiftExpr": {
+                                                                                                        "type": "shift expression",
+                                                                                                        "shiftExpr": null,
+                                                                                                        "op": null,
+                                                                                                        "additiveExpr": {
+                                                                                                            "type": "additive expression",
+                                                                                                            "additiveExpr": null,
+                                                                                                            "op": null,
+                                                                                                            "multiplicativeExpr": {
+                                                                                                                "type": "multiplicative expression",
+                                                                                                                "multiplicativeExpr": null,
+                                                                                                                "op": null,
+                                                                                                                "unaryExpr": {
+                                                                                                                    "type": "unary expression",
+                                                                                                                    "postfixExpr": {
+                                                                                                                        "type": "postfix expression",
+                                                                                                                        "primaryExpr": {
+                                                                                                                            "expr": null,
+                                                                                                                            "value": "0"
+                                                                                                                        },
+                                                                                                                        "postfixExpr": null,
+                                                                                                                        "expr": null,
+                                                                                                                        "identifier": null,
+                                                                                                                        "op": null,
+                                                                                                                        "arguments": null
+                                                                                                                    },
+                                                                                                                    "op": "null",
+                                                                                                                    "unaryExpr": null
+                                                                                                                }
+                                                                                                            }
+                                                                                                        }
+                                                                                                    }
+                                                                                                }
+                                                                                            }
+                                                                                        },
+                                                                                        "op": null,
+                                                                                        "logicalExpr": null
+                                                                                    },
+                                                                                    "unaryExpr": null,
+                                                                                    "assignOp": null,
+                                                                                    "assginExpr": null
+                                                                                }
+                                                                            ]
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            }
+                                                        ]
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "type": "statement",
+                                            "statementType": "expression",
+                                            "subStatement": {
+                                                "type": "expression statement",
+                                                "expr": {
+                                                    "type": "expression",
+                                                    "assignExprs": [
+                                                        {
+                                                            "type": "assignment expression",
+                                                            "logicalExpr": {
+                                                                "type": "logical expression",
+                                                                "bitOpExpr": {
+                                                                    "type": "bit operation expression",
+                                                                    "bitOpExpr": null,
+                                                                    "op": null,
+                                                                    "equalityExpr": {
+                                                                        "type": "equality expression",
+                                                                        "equalityExpr": null,
+                                                                        "op": null,
+                                                                        "relationalExpr": {
+                                                                            "type": "relational expression",
+                                                                            "relationalExpr": null,
+                                                                            "op": null,
+                                                                            "shiftExpr": {
+                                                                                "type": "shift expression",
+                                                                                "shiftExpr": null,
+                                                                                "op": null,
+                                                                                "additiveExpr": {
+                                                                                    "type": "additive expression",
+                                                                                    "additiveExpr": null,
+                                                                                    "op": null,
+                                                                                    "multiplicativeExpr": {
+                                                                                        "type": "multiplicative expression",
+                                                                                        "multiplicativeExpr": null,
+                                                                                        "op": null,
+                                                                                        "unaryExpr": {
+                                                                                            "type": "unary expression",
+                                                                                            "postfixExpr": {
+                                                                                                "type": "postfix expression",
+                                                                                                "primaryExpr": null,
+                                                                                                "postfixExpr": {
+                                                                                                    "type": "postfix expression",
+                                                                                                    "primaryExpr": {
+                                                                                                        "expr": null,
+                                                                                                        "value": "i"
+                                                                                                    },
+                                                                                                    "postfixExpr": null,
+                                                                                                    "expr": null,
+                                                                                                    "identifier": null,
+                                                                                                    "op": null,
+                                                                                                    "arguments": null
+                                                                                                },
+                                                                                                "expr": null,
+                                                                                                "identifier": null,
+                                                                                                "op": "++",
+                                                                                                "arguments": null
+                                                                                            },
+                                                                                            "op": "null",
+                                                                                            "unaryExpr": null
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                },
+                                                                "op": null,
+                                                                "logicalExpr": null
+                                                            },
+                                                            "unaryExpr": null,
+                                                            "assignOp": null,
+                                                            "assginExpr": null
+                                                        }
+                                                    ]
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "type": "statement",
+                                            "statementType": "expression",
+                                            "subStatement": {
+                                                "type": "expression statement",
+                                                "expr": {
+                                                    "type": "expression",
+                                                    "assignExprs": [
+                                                        {
+                                                            "type": "assignment expression",
+                                                            "logicalExpr": {
+                                                                "type": "logical expression",
+                                                                "bitOpExpr": {
+                                                                    "type": "bit operation expression",
+                                                                    "bitOpExpr": null,
+                                                                    "op": null,
+                                                                    "equalityExpr": {
+                                                                        "type": "equality expression",
+                                                                        "equalityExpr": null,
+                                                                        "op": null,
+                                                                        "relationalExpr": {
+                                                                            "type": "relational expression",
+                                                                            "relationalExpr": null,
+                                                                            "op": null,
+                                                                            "shiftExpr": {
+                                                                                "type": "shift expression",
+                                                                                "shiftExpr": null,
+                                                                                "op": null,
+                                                                                "additiveExpr": {
+                                                                                    "type": "additive expression",
+                                                                                    "additiveExpr": null,
+                                                                                    "op": null,
+                                                                                    "multiplicativeExpr": {
+                                                                                        "type": "multiplicative expression",
+                                                                                        "multiplicativeExpr": null,
+                                                                                        "op": null,
+                                                                                        "unaryExpr": {
+                                                                                            "type": "unary expression",
+                                                                                            "postfixExpr": {
+                                                                                                "type": "postfix expression",
+                                                                                                "primaryExpr": null,
+                                                                                                "postfixExpr": {
+                                                                                                    "type": "postfix expression",
+                                                                                                    "primaryExpr": {
+                                                                                                        "expr": null,
+                                                                                                        "value": "j"
+                                                                                                    },
+                                                                                                    "postfixExpr": null,
+                                                                                                    "expr": null,
+                                                                                                    "identifier": null,
+                                                                                                    "op": null,
+                                                                                                    "arguments": null
+                                                                                                },
+                                                                                                "expr": null,
+                                                                                                "identifier": null,
+                                                                                                "op": "--",
+                                                                                                "arguments": null
+                                                                                            },
+                                                                                            "op": "null",
+                                                                                            "unaryExpr": null
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                },
+                                                                "op": null,
+                                                                "logicalExpr": null
+                                                            },
+                                                            "unaryExpr": null,
+                                                            "assignOp": null,
+                                                            "assginExpr": null
+                                                        }
+                                                    ]
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "type": "statement",
+                        "statementType": "jump",
+                        "subStatement": {
+                            "statType": "return",
+                            "exprs": [
+                                {
+                                    "type": "expression",
+                                    "assignExprs": [
+                                        {
+                                            "type": "assignment expression",
+                                            "logicalExpr": {
+                                                "type": "logical expression",
+                                                "bitOpExpr": {
+                                                    "type": "bit operation expression",
+                                                    "bitOpExpr": null,
+                                                    "op": null,
+                                                    "equalityExpr": {
+                                                        "type": "equality expression",
+                                                        "equalityExpr": null,
+                                                        "op": null,
+                                                        "relationalExpr": {
+                                                            "type": "relational expression",
+                                                            "relationalExpr": null,
+                                                            "op": null,
+                                                            "shiftExpr": {
+                                                                "type": "shift expression",
+                                                                "shiftExpr": null,
+                                                                "op": null,
+                                                                "additiveExpr": {
+                                                                    "type": "additive expression",
+                                                                    "additiveExpr": null,
+                                                                    "op": null,
+                                                                    "multiplicativeExpr": {
+                                                                        "type": "multiplicative expression",
+                                                                        "multiplicativeExpr": null,
+                                                                        "op": null,
+                                                                        "unaryExpr": {
+                                                                            "type": "unary expression",
+                                                                            "postfixExpr": {
+                                                                                "type": "postfix expression",
+                                                                                "primaryExpr": {
+                                                                                    "expr": null,
+                                                                                    "value": "1"
+                                                                                },
+                                                                                "postfixExpr": null,
+                                                                                "expr": null,
+                                                                                "identifier": null,
+                                                                                "op": null,
+                                                                                "arguments": null
+                                                                            },
+                                                                            "op": "null",
+                                                                            "unaryExpr": null
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                "op": null,
+                                                "logicalExpr": null
+                                            },
+                                            "unaryExpr": null,
+                                            "assignOp": null,
+                                            "assginExpr": null
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "returnType": "int",
+            "funcName": "main",
+            "statements": {
+                "type": "compound statement",
+                "declarations": [],
+                "statements": [
+                    {
+                        "type": "statement",
+                        "statementType": "expression",
+                        "subStatement": {
+                            "type": "expression statement",
+                            "expr": {
+                                "type": "expression",
+                                "assignExprs": [
+                                    {
+                                        "type": "assignment expression",
+                                        "logicalExpr": {
+                                            "type": "logical expression",
+                                            "bitOpExpr": {
+                                                "type": "bit operation expression",
+                                                "bitOpExpr": null,
+                                                "op": null,
+                                                "equalityExpr": {
+                                                    "type": "equality expression",
+                                                    "equalityExpr": null,
+                                                    "op": null,
+                                                    "relationalExpr": {
+                                                        "type": "relational expression",
+                                                        "relationalExpr": null,
+                                                        "op": null,
+                                                        "shiftExpr": {
+                                                            "type": "shift expression",
+                                                            "shiftExpr": null,
+                                                            "op": null,
+                                                            "additiveExpr": {
+                                                                "type": "additive expression",
+                                                                "additiveExpr": null,
+                                                                "op": null,
+                                                                "multiplicativeExpr": {
+                                                                    "type": "multiplicative expression",
+                                                                    "multiplicativeExpr": null,
+                                                                    "op": null,
+                                                                    "unaryExpr": {
+                                                                        "type": "unary expression",
+                                                                        "postfixExpr": {
+                                                                            "type": "postfix expression",
+                                                                            "primaryExpr": null,
+                                                                            "postfixExpr": {
+                                                                                "type": "postfix expression",
+                                                                                "primaryExpr": {
+                                                                                    "expr": null,
+                                                                                    "value": "printf"
+                                                                                },
+                                                                                "postfixExpr": null,
+                                                                                "expr": null,
+                                                                                "identifier": null,
+                                                                                "op": null,
+                                                                                "arguments": null
+                                                                            },
+                                                                            "expr": null,
+                                                                            "identifier": null,
+                                                                            "op": null,
+                                                                            "arguments": [
+                                                                                {
+                                                                                    "type": "assignment expression",
+                                                                                    "logicalExpr": {
+                                                                                        "type": "logical expression",
+                                                                                        "bitOpExpr": {
+                                                                                            "type": "bit operation expression",
+                                                                                            "bitOpExpr": null,
+                                                                                            "op": null,
+                                                                                            "equalityExpr": {
+                                                                                                "type": "equality expression",
+                                                                                                "equalityExpr": null,
+                                                                                                "op": null,
+                                                                                                "relationalExpr": {
+                                                                                                    "type": "relational expression",
+                                                                                                    "relationalExpr": null,
+                                                                                                    "op": null,
+                                                                                                    "shiftExpr": {
+                                                                                                        "type": "shift expression",
+                                                                                                        "shiftExpr": null,
+                                                                                                        "op": null,
+                                                                                                        "additiveExpr": {
+                                                                                                            "type": "additive expression",
+                                                                                                            "additiveExpr": null,
+                                                                                                            "op": null,
+                                                                                                            "multiplicativeExpr": {
+                                                                                                                "type": "multiplicative expression",
+                                                                                                                "multiplicativeExpr": null,
+                                                                                                                "op": null,
+                                                                                                                "unaryExpr": {
+                                                                                                                    "type": "unary expression",
+                                                                                                                    "postfixExpr": {
+                                                                                                                        "type": "postfix expression",
+                                                                                                                        "primaryExpr": {
+                                                                                                                            "expr": null,
+                                                                                                                            "value": "\"Enter the string to test: \""
+                                                                                                                        },
+                                                                                                                        "postfixExpr": null,
+                                                                                                                        "expr": null,
+                                                                                                                        "identifier": null,
+                                                                                                                        "op": null,
+                                                                                                                        "arguments": null
+                                                                                                                    },
+                                                                                                                    "op": "null",
+                                                                                                                    "unaryExpr": null
+                                                                                                                }
+                                                                                                            }
+                                                                                                        }
+                                                                                                    }
+                                                                                                }
+                                                                                            }
+                                                                                        },
+                                                                                        "op": null,
+                                                                                        "logicalExpr": null
+                                                                                    },
+                                                                                    "unaryExpr": null,
+                                                                                    "assignOp": null,
+                                                                                    "assginExpr": null
+                                                                                }
+                                                                            ]
+                                                                        },
+                                                                        "op": "null",
+                                                                        "unaryExpr": null
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            },
+                                            "op": null,
+                                            "logicalExpr": null
+                                        },
+                                        "unaryExpr": null,
+                                        "assignOp": null,
+                                        "assginExpr": null
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "type": "statement",
+                        "statementType": "expression",
+                        "subStatement": {
+                            "type": "expression statement",
+                            "expr": {
+                                "type": "expression",
+                                "assignExprs": [
+                                    {
+                                        "type": "assignment expression",
+                                        "logicalExpr": {
+                                            "type": "logical expression",
+                                            "bitOpExpr": {
+                                                "type": "bit operation expression",
+                                                "bitOpExpr": null,
+                                                "op": null,
+                                                "equalityExpr": {
+                                                    "type": "equality expression",
+                                                    "equalityExpr": null,
+                                                    "op": null,
+                                                    "relationalExpr": {
+                                                        "type": "relational expression",
+                                                        "relationalExpr": null,
+                                                        "op": null,
+                                                        "shiftExpr": {
+                                                            "type": "shift expression",
+                                                            "shiftExpr": null,
+                                                            "op": null,
+                                                            "additiveExpr": {
+                                                                "type": "additive expression",
+                                                                "additiveExpr": null,
+                                                                "op": null,
+                                                                "multiplicativeExpr": {
+                                                                    "type": "multiplicative expression",
+                                                                    "multiplicativeExpr": null,
+                                                                    "op": null,
+                                                                    "unaryExpr": {
+                                                                        "type": "unary expression",
+                                                                        "postfixExpr": {
+                                                                            "type": "postfix expression",
+                                                                            "primaryExpr": null,
+                                                                            "postfixExpr": {
+                                                                                "type": "postfix expression",
+                                                                                "primaryExpr": {
+                                                                                    "expr": null,
+                                                                                    "value": "scanf"
+                                                                                },
+                                                                                "postfixExpr": null,
+                                                                                "expr": null,
+                                                                                "identifier": null,
+                                                                                "op": null,
+                                                                                "arguments": null
+                                                                            },
+                                                                            "expr": null,
+                                                                            "identifier": null,
+                                                                            "op": null,
+                                                                            "arguments": [
+                                                                                {
+                                                                                    "type": "assignment expression",
+                                                                                    "logicalExpr": {
+                                                                                        "type": "logical expression",
+                                                                                        "bitOpExpr": {
+                                                                                            "type": "bit operation expression",
+                                                                                            "bitOpExpr": null,
+                                                                                            "op": null,
+                                                                                            "equalityExpr": {
+                                                                                                "type": "equality expression",
+                                                                                                "equalityExpr": null,
+                                                                                                "op": null,
+                                                                                                "relationalExpr": {
+                                                                                                    "type": "relational expression",
+                                                                                                    "relationalExpr": null,
+                                                                                                    "op": null,
+                                                                                                    "shiftExpr": {
+                                                                                                        "type": "shift expression",
+                                                                                                        "shiftExpr": null,
+                                                                                                        "op": null,
+                                                                                                        "additiveExpr": {
+                                                                                                            "type": "additive expression",
+                                                                                                            "additiveExpr": null,
+                                                                                                            "op": null,
+                                                                                                            "multiplicativeExpr": {
+                                                                                                                "type": "multiplicative expression",
+                                                                                                                "multiplicativeExpr": null,
+                                                                                                                "op": null,
+                                                                                                                "unaryExpr": {
+                                                                                                                    "type": "unary expression",
+                                                                                                                    "postfixExpr": {
+                                                                                                                        "type": "postfix expression",
+                                                                                                                        "primaryExpr": {
+                                                                                                                            "expr": null,
+                                                                                                                            "value": "\"%s\""
+                                                                                                                        },
+                                                                                                                        "postfixExpr": null,
+                                                                                                                        "expr": null,
+                                                                                                                        "identifier": null,
+                                                                                                                        "op": null,
+                                                                                                                        "arguments": null
+                                                                                                                    },
+                                                                                                                    "op": "null",
+                                                                                                                    "unaryExpr": null
+                                                                                                                }
+                                                                                                            }
+                                                                                                        }
+                                                                                                    }
+                                                                                                }
+                                                                                            }
+                                                                                        },
+                                                                                        "op": null,
+                                                                                        "logicalExpr": null
+                                                                                    },
+                                                                                    "unaryExpr": null,
+                                                                                    "assignOp": null,
+                                                                                    "assginExpr": null
+                                                                                },
+                                                                                {
+                                                                                    "type": "assignment expression",
+                                                                                    "logicalExpr": {
+                                                                                        "type": "logical expression",
+                                                                                        "bitOpExpr": {
+                                                                                            "type": "bit operation expression",
+                                                                                            "bitOpExpr": null,
+                                                                                            "op": null,
+                                                                                            "equalityExpr": {
+                                                                                                "type": "equality expression",
+                                                                                                "equalityExpr": null,
+                                                                                                "op": null,
+                                                                                                "relationalExpr": {
+                                                                                                    "type": "relational expression",
+                                                                                                    "relationalExpr": null,
+                                                                                                    "op": null,
+                                                                                                    "shiftExpr": {
+                                                                                                        "type": "shift expression",
+                                                                                                        "shiftExpr": null,
+                                                                                                        "op": null,
+                                                                                                        "additiveExpr": {
+                                                                                                            "type": "additive expression",
+                                                                                                            "additiveExpr": null,
+                                                                                                            "op": null,
+                                                                                                            "multiplicativeExpr": {
+                                                                                                                "type": "multiplicative expression",
+                                                                                                                "multiplicativeExpr": null,
+                                                                                                                "op": null,
+                                                                                                                "unaryExpr": {
+                                                                                                                    "type": "unary expression",
+                                                                                                                    "postfixExpr": {
+                                                                                                                        "type": "postfix expression",
+                                                                                                                        "primaryExpr": {
+                                                                                                                            "expr": null,
+                                                                                                                            "value": "s"
+                                                                                                                        },
+                                                                                                                        "postfixExpr": null,
+                                                                                                                        "expr": null,
+                                                                                                                        "identifier": null,
+                                                                                                                        "op": null,
+                                                                                                                        "arguments": null
+                                                                                                                    },
+                                                                                                                    "op": "null",
+                                                                                                                    "unaryExpr": null
+                                                                                                                }
+                                                                                                            }
+                                                                                                        }
+                                                                                                    }
+                                                                                                }
+                                                                                            }
+                                                                                        },
+                                                                                        "op": null,
+                                                                                        "logicalExpr": null
+                                                                                    },
+                                                                                    "unaryExpr": null,
+                                                                                    "assignOp": null,
+                                                                                    "assginExpr": null
+                                                                                }
+                                                                            ]
+                                                                        },
+                                                                        "op": "null",
+                                                                        "unaryExpr": null
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            },
+                                            "op": null,
+                                            "logicalExpr": null
+                                        },
+                                        "unaryExpr": null,
+                                        "assignOp": null,
+                                        "assginExpr": null
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "type": "statement",
+                        "statementType": "selection",
+                        "subStatement": [
+                            {
+                                "type": "expression",
+                                "assignExprs": [
+                                    {
+                                        "type": "assignment expression",
+                                        "logicalExpr": {
+                                            "type": "logical expression",
+                                            "bitOpExpr": {
+                                                "type": "bit operation expression",
+                                                "bitOpExpr": null,
+                                                "op": null,
+                                                "equalityExpr": {
+                                                    "type": "equality expression",
+                                                    "equalityExpr": null,
+                                                    "op": null,
+                                                    "relationalExpr": {
+                                                        "type": "relational expression",
+                                                        "relationalExpr": null,
+                                                        "op": null,
+                                                        "shiftExpr": {
+                                                            "type": "shift expression",
+                                                            "shiftExpr": null,
+                                                            "op": null,
+                                                            "additiveExpr": {
+                                                                "type": "additive expression",
+                                                                "additiveExpr": null,
+                                                                "op": null,
+                                                                "multiplicativeExpr": {
+                                                                    "type": "multiplicative expression",
+                                                                    "multiplicativeExpr": null,
+                                                                    "op": null,
+                                                                    "unaryExpr": {
+                                                                        "type": "unary expression",
+                                                                        "postfixExpr": {
+                                                                            "type": "postfix expression",
+                                                                            "primaryExpr": null,
+                                                                            "postfixExpr": {
+                                                                                "type": "postfix expression",
+                                                                                "primaryExpr": {
+                                                                                    "expr": null,
+                                                                                    "value": "test"
+                                                                                },
+                                                                                "postfixExpr": null,
+                                                                                "expr": null,
+                                                                                "identifier": null,
+                                                                                "op": null,
+                                                                                "arguments": null
+                                                                            },
+                                                                            "expr": null,
+                                                                            "identifier": null,
+                                                                            "op": null,
+                                                                            "arguments": [
+                                                                                {
+                                                                                    "type": "assignment expression",
+                                                                                    "logicalExpr": {
+                                                                                        "type": "logical expression",
+                                                                                        "bitOpExpr": {
+                                                                                            "type": "bit operation expression",
+                                                                                            "bitOpExpr": null,
+                                                                                            "op": null,
+                                                                                            "equalityExpr": {
+                                                                                                "type": "equality expression",
+                                                                                                "equalityExpr": null,
+                                                                                                "op": null,
+                                                                                                "relationalExpr": {
+                                                                                                    "type": "relational expression",
+                                                                                                    "relationalExpr": null,
+                                                                                                    "op": null,
+                                                                                                    "shiftExpr": {
+                                                                                                        "type": "shift expression",
+                                                                                                        "shiftExpr": null,
+                                                                                                        "op": null,
+                                                                                                        "additiveExpr": {
+                                                                                                            "type": "additive expression",
+                                                                                                            "additiveExpr": null,
+                                                                                                            "op": null,
+                                                                                                            "multiplicativeExpr": {
+                                                                                                                "type": "multiplicative expression",
+                                                                                                                "multiplicativeExpr": null,
+                                                                                                                "op": null,
+                                                                                                                "unaryExpr": {
+                                                                                                                    "type": "unary expression",
+                                                                                                                    "postfixExpr": {
+                                                                                                                        "type": "postfix expression",
+                                                                                                                        "primaryExpr": {
+                                                                                                                            "expr": null,
+                                                                                                                            "value": "s"
+                                                                                                                        },
+                                                                                                                        "postfixExpr": null,
+                                                                                                                        "expr": null,
+                                                                                                                        "identifier": null,
+                                                                                                                        "op": null,
+                                                                                                                        "arguments": null
+                                                                                                                    },
+                                                                                                                    "op": "null",
+                                                                                                                    "unaryExpr": null
+                                                                                                                }
+                                                                                                            }
+                                                                                                        }
+                                                                                                    }
+                                                                                                }
+                                                                                            }
+                                                                                        },
+                                                                                        "op": null,
+                                                                                        "logicalExpr": null
+                                                                                    },
+                                                                                    "unaryExpr": null,
+                                                                                    "assignOp": null,
+                                                                                    "assginExpr": null
+                                                                                },
+                                                                                {
+                                                                                    "type": "assignment expression",
+                                                                                    "logicalExpr": {
+                                                                                        "type": "logical expression",
+                                                                                        "bitOpExpr": {
+                                                                                            "type": "bit operation expression",
+                                                                                            "bitOpExpr": null,
+                                                                                            "op": null,
+                                                                                            "equalityExpr": {
+                                                                                                "type": "equality expression",
+                                                                                                "equalityExpr": null,
+                                                                                                "op": null,
+                                                                                                "relationalExpr": {
+                                                                                                    "type": "relational expression",
+                                                                                                    "relationalExpr": null,
+                                                                                                    "op": null,
+                                                                                                    "shiftExpr": {
+                                                                                                        "type": "shift expression",
+                                                                                                        "shiftExpr": null,
+                                                                                                        "op": null,
+                                                                                                        "additiveExpr": {
+                                                                                                            "type": "additive expression",
+                                                                                                            "additiveExpr": null,
+                                                                                                            "op": null,
+                                                                                                            "multiplicativeExpr": {
+                                                                                                                "type": "multiplicative expression",
+                                                                                                                "multiplicativeExpr": null,
+                                                                                                                "op": null,
+                                                                                                                "unaryExpr": {
+                                                                                                                    "type": "unary expression",
+                                                                                                                    "postfixExpr": {
+                                                                                                                        "type": "postfix expression",
+                                                                                                                        "primaryExpr": null,
+                                                                                                                        "postfixExpr": {
+                                                                                                                            "type": "postfix expression",
+                                                                                                                            "primaryExpr": {
+                                                                                                                                "expr": null,
+                                                                                                                                "value": "strlen"
+                                                                                                                            },
+                                                                                                                            "postfixExpr": null,
+                                                                                                                            "expr": null,
+                                                                                                                            "identifier": null,
+                                                                                                                            "op": null,
+                                                                                                                            "arguments": null
+                                                                                                                        },
+                                                                                                                        "expr": null,
+                                                                                                                        "identifier": null,
+                                                                                                                        "op": null,
+                                                                                                                        "arguments": [
+                                                                                                                            {
+                                                                                                                                "type": "assignment expression",
+                                                                                                                                "logicalExpr": {
+                                                                                                                                    "type": "logical expression",
+                                                                                                                                    "bitOpExpr": {
+                                                                                                                                        "type": "bit operation expression",
+                                                                                                                                        "bitOpExpr": null,
+                                                                                                                                        "op": null,
+                                                                                                                                        "equalityExpr": {
+                                                                                                                                            "type": "equality expression",
+                                                                                                                                            "equalityExpr": null,
+                                                                                                                                            "op": null,
+                                                                                                                                            "relationalExpr": {
+                                                                                                                                                "type": "relational expression",
+                                                                                                                                                "relationalExpr": null,
+                                                                                                                                                "op": null,
+                                                                                                                                                "shiftExpr": {
+                                                                                                                                                    "type": "shift expression",
+                                                                                                                                                    "shiftExpr": null,
+                                                                                                                                                    "op": null,
+                                                                                                                                                    "additiveExpr": {
+                                                                                                                                                        "type": "additive expression",
+                                                                                                                                                        "additiveExpr": null,
+                                                                                                                                                        "op": null,
+                                                                                                                                                        "multiplicativeExpr": {
+                                                                                                                                                            "type": "multiplicative expression",
+                                                                                                                                                            "multiplicativeExpr": null,
+                                                                                                                                                            "op": null,
+                                                                                                                                                            "unaryExpr": {
+                                                                                                                                                                "type": "unary expression",
+                                                                                                                                                                "postfixExpr": {
+                                                                                                                                                                    "type": "postfix expression",
+                                                                                                                                                                    "primaryExpr": {
+                                                                                                                                                                        "expr": null,
+                                                                                                                                                                        "value": "s"
+                                                                                                                                                                    },
+                                                                                                                                                                    "postfixExpr": null,
+                                                                                                                                                                    "expr": null,
+                                                                                                                                                                    "identifier": null,
+                                                                                                                                                                    "op": null,
+                                                                                                                                                                    "arguments": null
+                                                                                                                                                                },
+                                                                                                                                                                "op": "null",
+                                                                                                                                                                "unaryExpr": null
+                                                                                                                                                            }
+                                                                                                                                                        }
+                                                                                                                                                    }
+                                                                                                                                                }
+                                                                                                                                            }
+                                                                                                                                        }
+                                                                                                                                    },
+                                                                                                                                    "op": null,
+                                                                                                                                    "logicalExpr": null
+                                                                                                                                },
+                                                                                                                                "unaryExpr": null,
+                                                                                                                                "assignOp": null,
+                                                                                                                                "assginExpr": null
+                                                                                                                            }
+                                                                                                                        ]
+                                                                                                                    },
+                                                                                                                    "op": "null",
+                                                                                                                    "unaryExpr": null
+                                                                                                                }
+                                                                                                            }
+                                                                                                        }
+                                                                                                    }
+                                                                                                }
+                                                                                            }
+                                                                                        },
+                                                                                        "op": null,
+                                                                                        "logicalExpr": null
+                                                                                    },
+                                                                                    "unaryExpr": null,
+                                                                                    "assignOp": null,
+                                                                                    "assginExpr": null
+                                                                                }
+                                                                            ]
+                                                                        },
+                                                                        "op": "null",
+                                                                        "unaryExpr": null
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            },
+                                            "op": null,
+                                            "logicalExpr": null
+                                        },
+                                        "unaryExpr": null,
+                                        "assignOp": null,
+                                        "assginExpr": null
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "type": "statement",
+                        "statementType": "jump",
+                        "subStatement": {
+                            "statType": "return",
+                            "exprs": [
+                                {
+                                    "type": "expression",
+                                    "assignExprs": [
+                                        {
+                                            "type": "assignment expression",
+                                            "logicalExpr": {
+                                                "type": "logical expression",
+                                                "bitOpExpr": {
+                                                    "type": "bit operation expression",
+                                                    "bitOpExpr": null,
+                                                    "op": null,
+                                                    "equalityExpr": {
+                                                        "type": "equality expression",
+                                                        "equalityExpr": null,
+                                                        "op": null,
+                                                        "relationalExpr": {
+                                                            "type": "relational expression",
+                                                            "relationalExpr": null,
+                                                            "op": null,
+                                                            "shiftExpr": {
+                                                                "type": "shift expression",
+                                                                "shiftExpr": null,
+                                                                "op": null,
+                                                                "additiveExpr": {
+                                                                    "type": "additive expression",
+                                                                    "additiveExpr": null,
+                                                                    "op": null,
+                                                                    "multiplicativeExpr": {
+                                                                        "type": "multiplicative expression",
+                                                                        "multiplicativeExpr": null,
+                                                                        "op": null,
+                                                                        "unaryExpr": {
+                                                                            "type": "unary expression",
+                                                                            "postfixExpr": {
+                                                                                "type": "postfix expression",
+                                                                                "primaryExpr": {
+                                                                                    "expr": null,
+                                                                                    "value": "0"
+                                                                                },
+                                                                                "postfixExpr": null,
+                                                                                "expr": null,
+                                                                                "identifier": null,
+                                                                                "op": null,
+                                                                                "arguments": null
+                                                                            },
+                                                                            "op": "null",
+                                                                            "unaryExpr": null
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                "op": null,
+                                                "logicalExpr": null
+                                            },
+                                            "unaryExpr": null,
+                                            "assignOp": null,
+                                            "assginExpr": null
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        }
+    ]
+}

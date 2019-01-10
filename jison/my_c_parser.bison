@@ -172,7 +172,7 @@ WS  [" "\t\v\n\f\r]
 %%
 
 program
-    : function_definitions { return {function_definitions: $1}}
+    : function_definitions { return {type: "program", functionDefinitions: $1}}
     ;
 
 function_definitions
@@ -193,27 +193,16 @@ direct_declarator
 	;
 
 type_specifier
-
 	: VOID { $$ = {vartype: yytext};}
-
 	| CHAR { $$ = {vartype: yytext};}
-
 	| SHORT { $$ = {vartype: yytext};}
-
 	| INT { $$ = {vartype: yytext};}
-
 	| LONG { $$ = {vartype: yytext};}
-
 	| FLOAT { $$ = {vartype: yytext};}
-
 	| DOUBLE { $$ = {vartype: yytext};}
-
 	| SIGNED { $$ = {vartype: yytext};}
-
 	| UNSIGNED { $$ = {vartype: yytext};}
-
 	| TYPE_NAME { $$ = {vartype: yytext};}
-
 	;
 
 
@@ -228,21 +217,21 @@ parameter_list
 
 
 parameter_declaration
-	: declaration_specifiers declarator { $$ = {}; }
-	| declaration_specifiers { $$ = {}; }
+	: declaration_specifiers declarator           { $$ = {}; }
+	| declaration_specifiers                      { $$ = {}; }
 	;
 
 
 compound_statement
-	: '{' '}' { $$ = []; }
-    | '{' statement_list '}' { $$ = $2; }
-    | '{' declaration_list '}' { $$ = $2; }
-    | '{' declaration_list statement_list '}' { $2.push($3); $$ = $2; }
+	: '{' '}'                                     { $$ = {type: "compound statement", declarations: [], statements: []}; }
+    | '{' statement_list '}'                      { $$ = {type: "compound statement", declarations: [], statements: $2}; }
+    | '{' declaration_list '}'                    { $$ = {type: "compound statement", declarations: $2, statements: []}; }
+    | '{' declaration_list statement_list '}'     { $$ = {type: "compound statement", declarations: $2, statements: $3}; }
 	;
 
 declaration_list
-	: declaration { $$ = []; }
-	| declaration_list declaration { $$ = $1; }
+	: declaration                                 { $$ = []; }
+	| declaration_list declaration                { $1.push($2); $$ = $1; }
 	;
 
 declaration
@@ -286,127 +275,127 @@ pointer
 	;
 
 statement_list
-	: statement
-	| statement_list statement
+	: statement                      { $$ = [$1]}
+	| statement_list statement       { $1.push($2); $$ = $1; }
 	;
 
 statement
-	: compound_statement { $$ = {statType: 'compound', stats: $1}; }
-	| expression_statement { $$ = {statType: 'expression', exprs: [$1]}; }
-	| selection_statement { $$ = {statType: 'selection', stats: $1}; }
-	| iteration_statement { $$ = {statType: $1.statType, stats: [$1.stat], exprs: $1.exprs}; }
-	| jump_statement { $$ = {statType: $1.statType, exprs: $1.exprs}; }
+	: compound_statement   { $$ = {type: "statement", statementType: "compound", subStatement: $1}; }
+	| expression_statement { $$ = {type: "statement", statementType: "expression", subStatement: $1}; }
+	| selection_statement  { $$ = {type: "statement", statementType: "selection", subStatement: $1}; }
+	| iteration_statement  { $$ = {type: "statement", statementType: "iteration", subStatement: $1}; }
+	| jump_statement       { $$ = {type: "statement", statementType: "jump", subStatement: $1}; }
 	;
 
 expression_statement //可能為空對象
-	: ';' { $$ = {}; }
-	| expression ';' { $$ = {expr: $1}; }
+	: ';'            { $$ = {type: "expression statement", expr: null};}
+	| expression ';' { $$ = {type: "expression statement", expr: $1}; }
 	;
 
 expression
-	: assignment_expression { $$ = {}; }
-	| expression ',' assignment_expression{ $$ = {}; }
+	: assignment_expression { $$ = {type: "expression", assignExprs: [$1]}; }
+	| expression ',' assignment_expression{ $1.assignExprs.push($3); $$ = $1; }
 	;
 
 assignment_expression
-	: logical_expression
-	| unary_expression assignment_operator assignment_expression //賦值語句
+	: logical_expression                                           { $$ = {type: "assignment expression", logicalExpr: $1, unaryExpr: null, assignOp: null, assginExpr: null}; }
+	| unary_expression assignment_operator assignment_expression   { $$ = {type: "assignment expression", logicalExpr: null, unaryExpr: $1, assignOp: $2, assginExpr: $3}; }
 	;
 
 assignment_operator
-	: '='
-	| MUL_ASSIGN
-	| DIV_ASSIGN
-	| MOD_ASSIGN
-	| ADD_ASSIGN
-	| SUB_ASSIGN
-	| LEFT_ASSIGN
-	| RIGHT_ASSIGN
-	| AND_ASSIGN
-	| XOR_ASSIGN
-	| OR_ASSIGN
+	: '='               { $$ = "="; }
+	| MUL_ASSIGN        { $$ = "*="; }
+	| DIV_ASSIGN        { $$ = "/="; }
+	| MOD_ASSIGN        { $$ = "%="; }
+	| ADD_ASSIGN        { $$ = "+="; }
+	| SUB_ASSIGN        { $$ = "="; }
+	| LEFT_ASSIGN       { $$ = "<<="; }
+	| RIGHT_ASSIGN      { $$ = ">>="; }
+	| AND_ASSIGN        { $$ = "&="; }
+	| XOR_ASSIGN        { $$ = "^="; }
+	| OR_ASSIGN         { $$ = "|="; }
 	;
 
 logical_expression
-	: bit_operation_expression
-	| logical_expression AND_OP bit_operation_expression
-	| logical_expression OR_OP bit_operation_expression
+	: bit_operation_expression { $$ = {type: "logical expression", bitOpExpr: $1, op: null, logicalExpr: null}; }
+	| logical_expression AND_OP bit_operation_expression { $$ = {type: "logical expression", bitOpExpr: $3, op: "&&", logicalExpr: $1}; }
+	| logical_expression OR_OP bit_operation_expression { $$ = {type: "logical expression", bitOpExpr: $3, op: "||", logicalExpr: $1}; }
 	;
 
 bit_operation_expression
-    : equality_expression
-    | bit_operation_expression '|' equality_expression
-    | bit_operation_expression '&' equality_expression
-    | bit_operation_expression '^' equality_expression
+    : equality_expression { $$ = {type: "bit operation expression", bitOpExpr: null, op: null, equalityExpr: $1}; }
+    | bit_operation_expression '|' equality_expression { $$ = {type: "bit operation expression", bitOpExpr: $1, op: "|", equalityExpr: $3}; }
+    | bit_operation_expression '&' equality_expression { $$ = {type: "bit operation expression", bitOpExpr: $1, op: "&", equalityExpr: $3}; }
+    | bit_operation_expression '^' equality_expression { $$ = {type: "bit operation expression", bitOpExpr: $1, op: "^", equalityExpr: $3}; }
     ;
 
 
 equality_expression
-    : relational_expression
-	| equality_expression EQ_OP relational_expression
-	| equality_expression NE_OP relational_expression
+    : relational_expression { $$ = {type: "equality expression", equalityExpr: null, op: null, relationalExpr: $1}; }
+	| equality_expression EQ_OP relational_expression { $$ = {type: "equality expression", equalityExpr: $1, op: "==", relationalExpr: $3}; }
+	| equality_expression NE_OP relational_expression { $$ = {type: "equality expression", equalityExpr: $1, op: "!=", relationalExpr: $3}; }
 	;
 
 relational_expression
-	: shift_expression
-	| relational_expression '<' shift_expression
-	| relational_expression '>' shift_expression
-	| relational_expression LE_OP shift_expression
-	| relational_expression GE_OP shift_expression
+	: shift_expression { $$ = {type: "relational expression", relationalExpr: null, op: null, shiftExpr: $1}; }
+	| relational_expression '<' shift_expression { $$ = {type: "relational expression", relationalExpr: $1, op: "<", shiftExpr: $3}; }
+	| relational_expression '>' shift_expression { $$ = {type: "relational expression", relationalExpr: $1, op: ">", shiftExpr: $3}; }
+	| relational_expression LE_OP shift_expression { $$ = {type: "relational expression", relationalExpr: $1, op: "<=", shiftExpr: $3}; }
+	| relational_expression GE_OP shift_expression { $$ = {type: "relational expression", relationalExpr: $1, op: ">=", shiftExpr: $3}; }
 	;
 
 shift_expression
-	: additive_expression
-	| shift_expression LEFT_OP additive_expression
-	| shift_expression RIGHT_OP additive_expression
+	: additive_expression { $$ = {type: "shift expression", shiftExpr: null, op: null, additiveExpr: $1}; }
+	| shift_expression LEFT_OP additive_expression { $$ = {type: "shift expression", shiftExpr: $1, op: "<<", additiveExpr: $3}; }
+	| shift_expression RIGHT_OP additive_expression { $$ = {type: "shift expression", shiftExpr: $1, op: ">>", additiveExpr: $3}; }
 	;
 
 additive_expression
-	: multiplicative_expression
-	| additive_expression '+' multiplicative_expression
-	| additive_expression '-' multiplicative_expression
+	: multiplicative_expression { $$ = {type: "additive expression", additiveExpr: null, op: null, multiplicativeExpr: $1}; }
+	| additive_expression '+' multiplicative_expression { $$ = {type: "additive expression", additiveExpr: $1, op: "+", multiplicativeExpr: $3}; }
+	| additive_expression '-' multiplicative_expression { $$ = {type: "additive expression", additiveExpr: $1, op: "-", multiplicativeExpr: $3}; }
 	;
 
 multiplicative_expression
-	: unary_expression
-	| multiplicative_expression '*' unary_expression
-	| multiplicative_expression '/' unary_expression
-	| multiplicative_expression '%' unary_expression
+	: unary_expression { $$ = {type: "multiplicative expression", multiplicativeExpr: null, op: null, unaryExpr: $1}; }
+	| multiplicative_expression '*' unary_expression { $$ = {type: "multiplicative expression", multiplicativeExpr: $1, op: "*", unaryExpr: $3}; }
+	| multiplicative_expression '/' unary_expression { $$ = {type: "multiplicative expression", multiplicativeExpr: $1, op: "/", unaryExpr: $3}; }
+	| multiplicative_expression '%' unary_expression { $$ = {type: "multiplicative expression", multiplicativeExpr: $1, op: "%", unaryExpr: $3}; }
 	;
 
 unary_expression
-	: postfix_expression
-	| INC_OP unary_expression
-	| DEC_OP unary_expression
-	| '&' unary_expression
-	| '*' unary_expression
-	| '+' unary_expression
-	| '-' unary_expression
-	| '~' unary_expression
-	| '!' unary_expression
+	: postfix_expression                                      { $$ = {type: "unary expression", postfixExpr: $1, op: "null",unaryExpr: null}; }
+	| INC_OP unary_expression                                 { $$ = {type: "unary expression", postfixExpr: null, op: "++", unaryExpr: $2}; }
+	| DEC_OP unary_expression                                 { $$ = {type: "unary expression", postfixExpr: null, op: "--", unaryExpr: $2}; }
+	| '&' unary_expression                                    { $$ = {type: "unary expression", postfixExpr: null, op: "&", unaryExpr: $2}; }
+	| '*' unary_expression                                    { $$ = {type: "unary expression", postfixExpr: null, op: "*", unaryExpr: $2}; }
+	| '+' unary_expression                                    { $$ = {type: "unary expression", postfixExpr: null, op: "+", unaryExpr: $2}; }
+	| '-' unary_expression                                    { $$ = {type: "unary expression", postfixExpr: null, op: "-", unaryExpr: $2}; }
+	| '~' unary_expression                                    { $$ = {type: "unary expression", postfixExpr: null, op: "~", unaryExpr: $2}; }
+	| '!' unary_expression                                    { $$ = {type: "unary expression", postfixExpr: null, op: "!", unaryExpr: $2}; }
 	;
 
 postfix_expression
-	: primary_expression
-	| postfix_expression '[' expression ']'
-	| postfix_expression '(' ')'
-	| postfix_expression '(' argument_expression_list ')'
-	| postfix_expression '.' IDENTIFIER
-	| postfix_expression PTR_OP IDENTIFIER
-	| postfix_expression INC_OP
-	| postfix_expression DEC_OP
+	: primary_expression                                       { $$ = {type: "postfix expression", primaryExpr: $1, postfixExpr: null, expr: null, identifier: null, op: null, arguments: null}; }
+	| postfix_expression '[' expression ']'                    { $$ = {type: "postfix expression", primaryExpr: null, postfixExpr: $1, expr: $3, identifier: null, op: null, arguments: null}; }
+	| postfix_expression '(' ')'                               { $$ = {type: "postfix expression", primaryExpr: null, postfixExpr: $1, expr: null, identifier: null, op: null, arguments: null}; }
+	| postfix_expression '(' argument_expression_list ')'      { $$ = {type: "postfix expression", primaryExpr: null, postfixExpr: $1, expr: null, identifier: null, op: null, arguments: $3}; }
+	| postfix_expression '.' IDENTIFIER                        { $$ = {type: "postfix expression", primaryExpr: null, postfixExpr: $1, expr: null, identifier: $3, op: null, arguments: null}; }
+	| postfix_expression PTR_OP IDENTIFIER                     { $$ = {type: "postfix expression", primaryExpr: null, postfixExpr: $1, expr: null, identifier: $3, op: null, arguments: null}; }
+	| postfix_expression INC_OP                                { $$ = {type: "postfix expression", primaryExpr: null, postfixExpr: $1, expr: null, identifier: null, op: "++", arguments: null}; }
+	| postfix_expression DEC_OP                                { $$ = {type: "postfix expression", primaryExpr: null, postfixExpr: $1, expr: null, identifier: null, op: "--", arguments: null}; }
 	;
 
 argument_expression_list
-	: assignment_expression
-	| argument_expression_list ',' assignment_expression
+	: assignment_expression                                 { $$ = [$1]; }
+	| argument_expression_list ',' assignment_expression    { $1.push($3); $$ = $1; }
 	;
 
 primary_expression
-	: IDENTIFIER
-	| CONSTANT
-	| STRING_LITERAL
-	| '(' expression ')'
+	: IDENTIFIER            { $$ = {expr: null, value: yytext}; }
+	| CONSTANT              { $$ = {expr: null, value: yytext}; }
+	| STRING_LITERAL        { $$ = {expr: null, value: yytext}; }
+	| '(' expression ')'    { $$ = {expr: $2, value: null}; }
 	;
 
 selection_statement
