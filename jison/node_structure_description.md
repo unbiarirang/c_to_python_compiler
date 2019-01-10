@@ -3,6 +3,30 @@ Nodes:
 
 
 ```javascript
+// program node
+{
+    type: "program",
+    funcDefs: []       // an array of function definition nodes
+}
+
+// function definition node
+{
+    type: "function definition",
+    returnType: "",
+    name: "",
+    params: [],              // an array of parameter declaration nodes, may be empty
+    satements: []            // an array of statement nodes
+}
+
+// parameter declaration node
+{
+    type: "parameter declaration",
+    declaredType: "",             // e.g. "int", "void, etc
+    name: "",                      // e.g. "a", "i"
+    isArray: true,                 // true or false 
+    isPointer: true,               // true or false 
+}
+
 
 // statement node
 {
@@ -11,7 +35,30 @@ Nodes:
     subStatement: {}            // a node of compound Statement, expression statement, selection statement, iteration statement or jump statement
 }
 
-// 
+// selection statement node
+{
+    type: "selection statement",
+    expr: {},                     // an expression node of the condition
+    ifThenStatement: {},         // a statement node of it-then
+    elseStatment: {}            // a statement node of else, may be null
+}
+
+// iteration statement node
+{
+    type: "iteration statement",
+    loopType: "",                // "while", "doWhile", "for"
+    exprs: [],                   // an array of expression nodes,
+                                 // only one element when "while" and "doWhile"
+                                 // 2 or 3 elements when "for"
+    statement: {}                
+}
+
+// jump statement
+{
+    type: "jump statement",
+    jumpType: "",                 // "break", "continue", "return"
+    expr: {}                      //  only for some "return"s, may be null
+}
 
 // expression statement node
 {
@@ -37,13 +84,49 @@ Nodes:
 }
 
 
+// declaration node
+{
+    type: "declaration",
+    declaredType: "",             // e.g. "int", "void, etc
+    name: "",                      // e.g. "a", "i"
+    isArray: true,                 // true or false 
+    isPointer: true,               // true or false 
+    assignExpr: {}                 // an assginment expression node, may be null
+}
+
+    
+/*
+// init declarator node
+//     => (declarator)
+//  or => (declarator) = (assignemnt expression) 
+//  e.g.  a = 10*8     or     just a
+{
+    type: "init declarator",
+    name: ""
+    isPointer
+    assignExpr {}                // an initializer node, may be null
+}
+
+
+// declarator node
+{
+    type: "declarator",
+    name: ""                     // e.g. "test", "main", "a", "i"
+    isArray: true,                 // true or false 
+    isPointer: true,               // true or false 
+    assignExpr: {}                 // an assginment expression node
+}
+*/
+    
+    
+
 // expression node
 {
     type: "expression",
     assignExprs: []     // an array of assignment expression nodes.
     
     // note that assignment expressions should be seperated by "," in one line
-    // e.g. int a=1, float b, double c=2;
+    // e.g. a=1, b*=5, c+=2;
 } 
 
 // assignment expression node
