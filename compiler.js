@@ -557,15 +557,9 @@ function parser(tokens) {
             }
 
             if (token.value === '++')
-              node.op = {
-                type: 'Operator',
-                value: '+='
-              }
+              node.op = '+';
             else if (token.value === '--')
-              node.op = {
-                type: 'Operator',
-                value: '-='
-              }
+              node.op = '-';
 
             current++;
           }
@@ -773,15 +767,12 @@ function traverser(ast, visitor) {
         traverseNode(node.dest, node);
         traverseNode(node.src, node);
 
-      case 'OpExpression':
-        traverseNode(node.left, node);
-        traverseNode(node.right, node);
-
       // In the cases of `NumberLiteral` and `StringLiteral` we don't have any
       // child nodes to visit, so we'll just break.
       case 'NumberLiteral':
       case 'StringLiteral':
       case 'Variable':
+      case 'Semicolon':
         break;
 
       // And again, if we haven't recognized the node type then we'll throw an
@@ -878,38 +869,29 @@ function transformer(ast) {
       enter(node, parent) {
         // We'll create a new node also named `NumberLiteral` that we will push to
         // the parent context.
-         if (parent._context) parent._context.push(node);
+        // parent._context.push({
+        //   type: 'NumberLiteral',
+        //   value: node.value,
+        // });
       },
     },
 
     // Next we have `StringLiteral`
     StringLiteral: {
       enter(node, parent) {
-        parent._context.push(node);
+        // parent._context.push({
+        //   type: 'StringLiteral',
+        //   value: node.value,
+        // });
       },
     },
 
     Variable: {
       enter(node, parent) {
-        let vartype;
-        if (['int', 'double', 'float'].indexOf(node.vartype) >= 0)
-          vartype = 'Number';
-        else if (['char', 'char*'].indexOf(node.vartype) >= 0)
-          vartype = 'String';
-
-        let new_node = {
-          type: 'Variable',
-          name: node.name,
-          vartype: vartype ? vartype : null,
-          value: node.value ? node.value : null
-        };
-        if (parent._context) parent._context.push(new_node);
-      },
-    },
-
-    OpExpression: {
-      enter(node, parent) {
-         parent._context.push(node);
+        // parent._context.push({
+        //   type: 'Variable',
+        //   name: node.name,
+        // });
       },
     },
 
@@ -1011,11 +993,6 @@ function codeGenerator(node) {
         ')'
       );
 
-    case 'OpExpression':
-      return (
-        codeGenerator(node.left) + ' ' + codeGenerator(node.op) + ' '
-        + codeGenerator(node.right)
-      );
     case 'DefExpression':
       return (
         codeGenerator(node.dest) + ' = ' + codeGenerator(node.src)
@@ -1028,7 +1005,6 @@ function codeGenerator(node) {
 
     // For `NumberLiteral` we'll just return the `node`'s value.
     case 'NumberLiteral':
-    case 'Operator':
       return node.value;
 
     // For `StringLiteral` we'll add quotations around the `node`'s value.
@@ -1039,6 +1015,156 @@ function codeGenerator(node) {
     default:
       throw new TypeError(node.type);
   }
+}
+
+var currentfunc;
+function go(ast){
+  var result = "";
+  while(ast.body.length){
+    //console.log(ast.body.shift());
+    var temp = ast.body.shift();
+    currentfunc = temp.dest.name;
+    result += trans(temp, 1);
+  } 
+  console.log(result);
+}
+function addtap(indent){
+  var tab = "    ";
+  var total ="";
+  for(var i = 0; i < indent; i++)
+    total += tab;
+  return total;
+}
+
+function trans(ast, indent){
+  var contents = "";
+  var params;
+  var bodylist;
+  //console.log(ast);
+  if(ast.type == 'FuncDefExpression'){
+    var node = ast;
+    bodylist = node.body;
+  }
+  else if(ast.type == 'LoopExpression'){
+    var node = ast;
+    bodylist = node.action;
+  }
+  else if(ast.type == 'CondExpression'){
+    var node = ast;
+    if(node.true_action.length != 0)
+      bodylist = node.true_action;
+    else if(node.true_action.length == 0 && node.false_action.length != 0)
+      bodylist = node.false_action;
+  }
+
+  if (node.type == 'FuncDefExpression' && node.dest.name != 'main'){
+    contents += "def " + node.dest.name + "(";
+    var param_length = node.params.length;
+    if(param_length > 0){
+      for(var i = 1; i < param_length; i++){
+        params = node.params.shift();
+        contents += params.name + ", ";
+      }
+      contents += node.params.shift().name + "):\n";
+    }
+  }
+  while(bodylist.length){
+    var body = bodylist.shift();
+    switch (body.type){
+      case 'VarDefExpression':
+        var dest = body.dest;
+        var src = body.src;
+        //contents += tab;
+        if(currentfunc != 'main')
+          contents += addtap(indent);
+        contents += dest.name + ' = ';
+
+        if(src != undefined){
+          if(src.type == 'NumberLiteral'){
+            contents += src.value;
+          }
+          else if(src.type == 'Variable'){
+            contents += src.name;
+          }
+        }
+        else{
+          contents += '\'\'';
+        }
+      break;
+      
+      case 'OpExpression':
+        var left = body.left;
+        var right = body.right;
+        var op = body.op;
+        if(currentfunc != 'main')
+          contents += addtap(indent);
+        contents += left.name + ' = ' + left.name + ' ' + op + ' ';
+        if(right.type == 'NumberLiteral'){
+          contents += right.value;
+        }
+        else if(right.type == 'Variable'){
+          contents += right.name;
+        }
+        break;
+      case 'CondExpression':
+        if(currentfunc != 'main')
+          contents += addtap(indent);
+        contents += 'if (' + body.condition +'):\n';
+        contents += trans(body, indent + 1);
+        if(body.false_action.length != 0){
+          contents += 'else:\n';
+          contents += trans(body, indent + 1);
+        }
+        break;
+      
+      case 'CallExpression':
+        var param;
+        if (currentfunc == 'main')
+          contents += addtap(indent - 1);
+        else
+          contents += addtap(indent);
+        if(body.name == 'printf'){
+          contents += 'printf(\"';
+          while(body.params.length){
+            param = body.params.shift();
+            if(param.type == 'StringLiteral')
+              contents += param.value + '\")';
+          }
+        }
+        else if(body.name == 'scanf'){
+          //console.log(body);
+          while(body.params.length){
+            param = body.params.shift();
+            if(param.type == 'Variable')
+              contents += param.name + ' = input()';
+          }
+        }
+        break;
+
+
+      case 'RetExpression':
+        if(currentfunc != 'main'){
+          contents += addtap(indent);
+          contents += 'return ';
+          if(body.value.type == 'NumberLiteral')
+            contents += body.value.value;
+        }
+        break;
+
+      case 'LoopExpression':
+        if(currentfunc != 'main')
+          contents += addtap(indent);
+        contents += 'while (' + body.condition + '):\n';
+        contents += trans(body, indent + 1);
+        break;
+      default:
+        throw new TypeError(body.type);
+    }
+    if(body.type != 'CondExpression')
+      contents += '\n';
+  }
+  //}//end of while
+  return contents;
 }
 
 /**
@@ -1058,11 +1184,16 @@ function codeGenerator(node) {
  *   4. newAst => generator   => output
  */
 
+
+
+
+
+
 function compiler(input) {
   let tokens = tokenizer(input);
   console.log('=====tokens=====');
   console.log(tokens);
-  let ast    = parser(tokens);
+  let ast = parser(tokens);
   console.log('=====ast=====');
   console.log(JSON.stringify(ast, null, 4));
   let newAst = transformer(ast);
@@ -1082,6 +1213,7 @@ module.exports = {
   transformer,
   codeGenerator,
   compiler,
+  go,
 };
 
 let input = `
@@ -1114,21 +1246,21 @@ int main() {
     return 0;
 }
 `;
-let input2 = 'int i = 0; int j = i;';
-let input3 = 'int main(int x, int y) { int a = 1; int b = 2; }';
-let input4 = 'printf("hello, world");';
-let input5 = 'add(1, 2);';
-let input6 = 'char s[200];';
-let input7 = 'i++; j--;'
-let input8 = 'i = 0;';
-let input9 = 'i = j;';
-let input10 = 'return 1;';
-let input11 = 'return x;';
-let input12 = 'while (i < j) { int x = 1; return x; }';
-let input13 = 'if (test(s, strlen(s))) {}';
-let input14 = 'if (s[i] == s[j]) { return 1; } else { return 0; }';
-let input15 = 'int test(char* s, int len) {}';
-let input16 = 'scanf("%s", s);';
-let output = compiler(input);
-console.log('=====output=====');
-console.log(output);
+// let input2 = 'int i = 0; int j = i;';
+// let input3 = 'int main(int x, int y) { int a = 1; int b = 2; }';
+// let input4 = 'printf("The string is palindromic.\n");';
+// let input5 = 'add(1, 2);';
+// let input6 = 'char s[200];';
+// let input7 = 'i++; j--;'
+// let input8 = 'i = 0;';
+// let input9 = 'i = j;';
+// let input10 = 'return 1;';
+// let input11 = 'return x;';
+// let input12 = 'while (i < j) { int x = 1; return x; }';
+// let input13 = 'if (test(s, strlen(s))) {}';
+// let input14 = 'if (s[i] == s[j]) { return 1; } else { return 0; }';
+// let input15 = 'int test(char* s, int len) {}';
+// let input16 = 'scanf("%s", s);';
+// let output = compiler(input);
+// console.log('=====output=====');
+// console.log(output);

@@ -3,11 +3,11 @@ const compiler = require('./compiler');
 
 function compileFile(filename) {
     let text = fs.readFileSync(filename).toString();
-    console.log(text);
+    //console.log(text);
     let tokens = compiler.tokenizer(text);
-    console.log(tokens);
+    //console.log(tokens);
     let ast = compiler.parser(tokens);
-    console.log(ast);
+    compiler.go(ast);
 };
 
 process.argv.forEach(function(val) {
