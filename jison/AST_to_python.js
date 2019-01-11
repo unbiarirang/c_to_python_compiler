@@ -1,6 +1,7 @@
 const parser = require("./my_c_parser.js").parser;
 const fs = require("fs");
-var source = require('fs').readFileSync(require('path').normalize("code.c"), "utf8");
+
+let source = require('fs').readFileSync(require('path').normalize("code.c"), "utf8");
 root = parser.parse(source)
 result = (JSON.stringify(parser.parse(source), null, 2));
 
@@ -10,11 +11,8 @@ outputStream = "";
 
 indent = 0;
 
-
-
 write = (str) => {
     outputStream += str;
-    console.log('aaa')
 }
 
 writeIndent = () => {
@@ -24,12 +22,10 @@ writeIndent = () => {
 }
 
 printProgram = (program) => {
-    console.log(program)
     for (let funcDef of program.funcDefs) {
-        console.log(funcDef)
         printFuncDef(funcDef);
     }
-    write("\n");
+    write('main()\n');
 }
 
 printFuncDef = (funcDef) => {
@@ -63,25 +59,29 @@ printStatement = (stat) => {
     if (stat.statementType === 'compound') {
         printCompoundStat(stat.subStatement);
     } else if (stat.statementType === 'expression') {
-        writeIndent();
-        write('expression statement\n');
+        //writeIndent();
+        //write('expression statement\n');
         printExpressionStat(stat.subStatement);
     } else if (stat.statementType === 'jump') {
-        writeIndent();
-        write('jump statement\n');
+        //writeIndent();
+        //write('jump statement\n');
+        printJumpStat(stat.subStatement);
     } else if (stat.statementType === 'iteration') {
-        writeIndent();
-        write('iteration statement\n');
+        //writeIndent();
+        //write('iteration statement\n');
+        printIterationStat(stat.subStatement);
     } else if (stat.statementType === 'selection') {
-        writeIndent();
-        write('selection statement\n');
+        //writeIndent();
+        //write('selection statement\n');
         printSelectionStat(stat.subStatement);
     }
 }
 
 printCompoundStat = (stat) => {
+    for (let declaration of stat.declarations) {
+        printDeclaration(declaration); 
+    }
     for (let subStat of stat.statements) {
-        console.log('ddd');
         printStatement(subStat); 
     }
 }
@@ -89,9 +89,9 @@ printCompoundStat = (stat) => {
 printSelectionStat = (stat) => {
     writeIndent()
     write("if ");
-    // printExpression(stat.expr)
-    write("expr")
-    write(" :\n")
+    printExpression(stat.conditionExpr)
+    //write("expr")
+    write(":\n")
     indent += 4;
     printStatement(stat.ifThenStatement);
     indent -= 4;
@@ -105,10 +105,26 @@ printSelectionStat = (stat) => {
     }
 }
 printIterationStat = (stat) => {
-
+    writeIndent()
+    if (stat.loopType === 'while') {
+        write('while ');
+        printExpression(stat.exprs[0]);
+        write(" :\n");
+        indent += 4;
+        printStatement(stat.statement);
+        indent -= 4;
+    }
 }
 printJumpStat = (stat) => {
+    writeIndent();
+    if (stat.jumpType === 'return') {
 
+        write('return ');
+        if (stat.expr != null) {
+            printExpression(stat.expr)
+        }
+        write('\n')
+    }
 }
 printExpressionStat = (stat) => {
     writeIndent();
@@ -117,7 +133,6 @@ printExpressionStat = (stat) => {
 }
 
 printExpression = (expr) => {
-    writeIndent();
     let i = 0;
     let l = expr.assignExprs.length;
     for (i = 0; i < l-1; i++) {
@@ -127,7 +142,6 @@ printExpression = (expr) => {
     if (i < l) {
         printAssignExpr(expr.assignExprs[i]);
     }
-    write("\n");
 }
 
 printAssignExpr = (asExpr) => {
@@ -135,8 +149,7 @@ printAssignExpr = (asExpr) => {
         printLogicalExpr(asExpr.logicalExpr);
     } else {
         printUnaryExpr(asExpr.unaryExpr);
-        write(" " + asExpr.assignOp);
-        console.log("bbbbbbbbbbbbbbbbbbbbbbbbbb" + JSON.stringify(asExpr,null,2));
+        write(" " + asExpr.assignOp + " ");
         printAssignExpr(asExpr.assignExpr);
     }
 }
@@ -146,7 +159,7 @@ printLogicalExpr = (loExpr) => {
         printBitOpExpr(loExpr.bitOpExpr);
     } else {
         printLogicalExpr(loExpr.logicalExpr);
-        write(" " + loExpr.op);
+        write(" " + loExpr.op + " ");
         printBitOpExpr(loExpr.bitOpExpr);
     }
 }
@@ -156,7 +169,7 @@ printBitOpExpr = (bitOpExpr) => {
         printEqualityExpr(bitOpExpr.equalityExpr);
     } else {
         printBitOpExpr(bitOpExpr.bitOpExpr);
-        write(" " + bitOpExpr.op);
+        write(" " + bitOpExpr.op + " ");
         printEqualityExpr(bitOpExpr.equalityExpr);
     }
 }
@@ -166,18 +179,18 @@ printEqualityExpr = (equalityExpr) => {
         printRelationalExpr(equalityExpr.relationalExpr);
     } else {
         printEqualityExpr(equalityExpr.equalityExpr);
-        write(" " + equalityExpr.op);
+        write(" " + equalityExpr.op + " ");
         printRelationalExpr(equalityExpr.relationalExpr);
     }
 }
 
-printRelationalExpr = (rationalExpr) => {
-    if (rationalExpr.rationalExpr == null) {
-        printShiftExpr(rationalExpr.shiftExpr);
+printRelationalExpr = (relationalExpr) => {
+    if (relationalExpr.relationalExpr == null) {
+        printShiftExpr(relationalExpr.shiftExpr);
     } else {
-        printRelationalExpr(rationalExpr.rationalExpr);
-        write(" " + rationalExpr.op);
-        printShiftExpr(rationalExpr.shiftExpr);
+        printRelationalExpr(relationalExpr.relationalExpr);
+        write(" " + relationalExpr.op + " ");
+        printShiftExpr(relationalExpr.shiftExpr);
     }
 }
 
@@ -186,7 +199,7 @@ printShiftExpr = (shiftExpr) => {
         printAdditiveExpr(shiftExpr.additiveExpr);
     } else {
         printShiftExpr(shiftExpr.shiftExpr);
-        write(" " + shiftExpr.op);
+        write(" " + shiftExpr.op + " ");
         printAdditiveExpr(shiftExpr.additiveExpr);
     }
 }
@@ -196,7 +209,7 @@ printAdditiveExpr = (additiveExpr) => {
         printMultiplicativeExpr(additiveExpr.multiplicativeExpr);
     } else {
         printAdditiveExpr(additiveExpr.additiveExpr);
-        write(" " + additiveExpr.op);
+        write(" " + additiveExpr.op + " ");
         printMultiplicativeExpr(additiveExpr.multiplicativeExpr);
     }
 }
@@ -221,6 +234,13 @@ printUnaryExpr = (unaryExpr) => {
 }
 
 printPostfixExpr = (postfixExpr) => {
+
+    if (postfixExpr.postfixExpr != null && postfixExpr.postfixExpr.primaryExpr.value === 'scanf') {
+        printAssignExpr(postfixExpr.arguments[postfixExpr.arguments.length-1]);
+        write(" = input()");
+        return;
+    }
+
     if (postfixExpr.primaryExpr != null) {
         printPrimaryExpr(postfixExpr.primaryExpr);
     } else if (postfixExpr.expr != null) {
@@ -233,7 +253,11 @@ printPostfixExpr = (postfixExpr) => {
         write("." + postfixExpr.identifier);
     } else if (postfixExpr.op != null) {
         printPostfixExpr(postfixExpr.postfixExpr);
-        write(postfixExpr.op)
+        if (postfixExpr.op === "++") {
+            write(" += 1")
+        } else {
+            write(" -= 1")
+        }
     } else if (postfixExpr.arguments != null) {
         printPostfixExpr(postfixExpr.postfixExpr);
         write("(");
@@ -246,12 +270,11 @@ printPostfixExpr = (postfixExpr) => {
         if (i < l) {
             printAssignExpr(postfixExpr.arguments[i]);
         }
-        write(")\n");
+        write(")");
     }
 }
 
 printPrimaryExpr = (primaryExpr) => {
-    console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" + primaryExpr.value);
     if (primaryExpr.expr != null) {
         write("(");
         printExpression(primaryExpr.expr);
@@ -261,10 +284,30 @@ printPrimaryExpr = (primaryExpr) => {
             write('print');
         } else if (primaryExpr.value == 'scanf') {
             write('input');
+        } else if (primaryExpr.value == 'strlen') {
+            write('len');
         } else {
             write(primaryExpr.value);
         }
     }
+}
+
+printDeclaration = (declaration) => {
+    writeIndent();
+    if (declaration.declaredType === 'char' && (declaration.isArray || declaration.isPointer)) {
+        if (declaration.assignExpr == null) {
+            write(declaration.name + ' = \"\"')
+        } else {
+            write(declaration.name + ' = ');
+            printAssignExpr(declaration.assignExpr);
+        }
+    } else {
+        if (declaration.assignExpr != null) {
+            write(declaration.name + ' = ');
+            printAssignExpr(declaration.assignExpr);
+        }
+    }
+    write('\n');
 }
 
 printProgram(root);

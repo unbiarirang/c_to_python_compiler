@@ -232,7 +232,7 @@ declaration_list
 	;
 
 declaration
-	: declaration_specifiers ';'                  { $$ = {type: "declaration", declaredType: $1.vartype, name: $2.name, isArray: null, isPointer: null, assignExpr: null};}
+	: declaration_specifiers ';'                  { $$ = {type: "declaration", declaredType: $1.vartype, name: null, isArray: null, isPointer: null, assignExpr: null};}
 	| declaration_specifiers init_declarator ';'  { $$ = {type: "declaration", declaredType: $1.vartype, name: $2.name, isArray: $2.isArray, isPointer: $2.isPointer, assignExpr: $2.assignExpr};}
 	;
 
@@ -246,8 +246,8 @@ init_declarator_list
 	;
 
 init_declarator
-	: declarator                                  { $$ ={type: "init_declarator", name: $1.name, assignExpr: null};}
-	| declarator '=' initializer                  { $$ ={type: "init_declarator", name: $1.name, assignExpr: $3};}
+	: declarator                                  { $$ ={type: "init_declarator", name: $1.name, assignExpr: null, isPointer: $1.isArray, isArray: $1.isArray}; }
+	| declarator '=' initializer                  { $$ ={type: "init_declarator", name: $1.name, assignExpr: $3, isPointer: $1.isArray, isArray: $1.isArray}; }
 	;
 
 initializer

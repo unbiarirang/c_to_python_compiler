@@ -135,7 +135,7 @@ case 27:
  this.$ = {type: "compound statement", declarations: $$[$0-2], statements: $$[$0-1]}; 
 break;
 case 30:
- this.$ = {type: "declaration", declaredType: $$[$0-1].vartype, name: $$[$0].name, isArray: null, isPointer: null, assignExpr: null};
+ this.$ = {type: "declaration", declaredType: $$[$0-1].vartype, name: null, isArray: null, isPointer: null, assignExpr: null};
 break;
 case 31:
  this.$ = {type: "declaration", declaredType: $$[$0-2].vartype, name: $$[$0-1].name, isArray: $$[$0-1].isArray, isPointer: $$[$0-1].isPointer, assignExpr: $$[$0-1].assignExpr};
@@ -144,10 +144,10 @@ case 32: case 37:
  this.$ = $$[$0]; 
 break;
 case 35:
- this.$ ={type: "init_declarator", name: $$[$0].name, assignExpr: null};
+ this.$ ={type: "init_declarator", name: $$[$0].name, assignExpr: null, isPointer: $$[$0].isArray, isArray: $$[$0].isArray}; 
 break;
 case 36:
- this.$ ={type: "init_declarator", name: $$[$0-2].name, assignExpr: $$[$0]};
+ this.$ ={type: "init_declarator", name: $$[$0-2].name, assignExpr: $$[$0], isPointer: $$[$0-2].isArray, isArray: $$[$0-2].isArray}; 
 break;
 case 40:
  $$[$0-2].push($$[$0]); this.$ =$$[$0-2]; 

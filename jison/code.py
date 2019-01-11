@@ -1,33 +1,22 @@
-def test(s, len): 
-    expression statement
-        i--
-
-    iteration statement
-    jump statement
+def test(s, length): 
+    i = 0
+    j = length
+    j -= 1
+    while i < j :
+        if s[i] != s[j]:
+            return 0
+        i += 1
+        j -= 1
+    return 1
 
 def main(): 
-    expression statement
-        i =print +3 * 8 / 5
-
-    expression statement
-        print("Enter the string to test: ")
-
-
-    expression statement
-        input("%s", s)
-
-
-    selection statement
-    if expr :
-        expression statement
-                print("true")
-
-
+    s = ""
+    print("Enter the string to test: ")
+    s = input()
+    if test(s, len(s)):
+        print("true")
     else:
-        expression statement
-                print("false")
+        print("false")
+    return 0
 
-
-    jump statement
-
-
+main()

@@ -16,7 +16,7 @@
         {
           "type": "parameter declaration",
           "declaredType": "int",
-          "name": "len",
+          "name": "length",
           "isArray": false,
           "isPointer": false
         }
@@ -28,6 +28,8 @@
             "type": "declaration",
             "declaredType": "int",
             "name": "i",
+            "isArray": false,
+            "isPointer": false,
             "assignExpr": {
               "type": "assignment expression",
               "logicalExpr": {
@@ -91,6 +93,8 @@
             "type": "declaration",
             "declaredType": "int",
             "name": "j",
+            "isArray": false,
+            "isPointer": false,
             "assignExpr": {
               "type": "assignment expression",
               "logicalExpr": {
@@ -125,7 +129,7 @@
                                 "type": "postfix expression",
                                 "primaryExpr": {
                                   "expr": null,
-                                  "value": "len"
+                                  "value": "length"
                                 },
                                 "postfixExpr": null,
                                 "expr": null,
@@ -197,7 +201,7 @@
                                         "type": "postfix expression",
                                         "primaryExpr": {
                                           "expr": null,
-                                          "value": "i"
+                                          "value": "j"
                                         },
                                         "postfixExpr": null,
                                         "expr": null,
@@ -924,170 +928,12 @@
             "type": "declaration",
             "declaredType": "char",
             "name": "s",
+            "isArray": true,
+            "isPointer": true,
             "assignExpr": null
           }
         ],
         "statements": [
-          {
-            "type": "statement",
-            "statementType": "expression",
-            "subStatement": {
-              "type": "expression statement",
-              "expr": {
-                "type": "expression",
-                "assignExprs": [
-                  {
-                    "type": "assignment expression",
-                    "logicalExpr": null,
-                    "unaryExpr": {
-                      "type": "unary expression",
-                      "postfixExpr": {
-                        "type": "postfix expression",
-                        "primaryExpr": {
-                          "expr": null,
-                          "value": "i"
-                        },
-                        "postfixExpr": null,
-                        "expr": null,
-                        "identifier": null,
-                        "op": null,
-                        "arguments": null
-                      },
-                      "op": "null",
-                      "unaryExpr": null
-                    },
-                    "assignOp": "=",
-                    "assignExpr": {
-                      "type": "assignment expression",
-                      "logicalExpr": {
-                        "type": "logical expression",
-                        "bitOpExpr": {
-                          "type": "bit operation expression",
-                          "bitOpExpr": null,
-                          "op": null,
-                          "equalityExpr": {
-                            "type": "equality expression",
-                            "equalityExpr": null,
-                            "op": null,
-                            "relationalExpr": {
-                              "type": "relational expression",
-                              "relationalExpr": null,
-                              "op": null,
-                              "shiftExpr": {
-                                "type": "shift expression",
-                                "shiftExpr": null,
-                                "op": null,
-                                "additiveExpr": {
-                                  "type": "additive expression",
-                                  "additiveExpr": {
-                                    "type": "additive expression",
-                                    "additiveExpr": null,
-                                    "op": null,
-                                    "multiplicativeExpr": {
-                                      "type": "multiplicative expression",
-                                      "multiplicativeExpr": null,
-                                      "op": null,
-                                      "unaryExpr": {
-                                        "type": "unary expression",
-                                        "postfixExpr": {
-                                          "type": "postfix expression",
-                                          "primaryExpr": {
-                                            "expr": null,
-                                            "value": "printf"
-                                          },
-                                          "postfixExpr": null,
-                                          "expr": null,
-                                          "identifier": null,
-                                          "op": null,
-                                          "arguments": null
-                                        },
-                                        "op": "null",
-                                        "unaryExpr": null
-                                      }
-                                    }
-                                  },
-                                  "op": "+",
-                                  "multiplicativeExpr": {
-                                    "type": "multiplicative expression",
-                                    "multiplicativeExpr": {
-                                      "type": "multiplicative expression",
-                                      "multiplicativeExpr": {
-                                        "type": "multiplicative expression",
-                                        "multiplicativeExpr": null,
-                                        "op": null,
-                                        "unaryExpr": {
-                                          "type": "unary expression",
-                                          "postfixExpr": {
-                                            "type": "postfix expression",
-                                            "primaryExpr": {
-                                              "expr": null,
-                                              "value": "3"
-                                            },
-                                            "postfixExpr": null,
-                                            "expr": null,
-                                            "identifier": null,
-                                            "op": null,
-                                            "arguments": null
-                                          },
-                                          "op": "null",
-                                          "unaryExpr": null
-                                        }
-                                      },
-                                      "op": "*",
-                                      "unaryExpr": {
-                                        "type": "unary expression",
-                                        "postfixExpr": {
-                                          "type": "postfix expression",
-                                          "primaryExpr": {
-                                            "expr": null,
-                                            "value": "8"
-                                          },
-                                          "postfixExpr": null,
-                                          "expr": null,
-                                          "identifier": null,
-                                          "op": null,
-                                          "arguments": null
-                                        },
-                                        "op": "null",
-                                        "unaryExpr": null
-                                      }
-                                    },
-                                    "op": "/",
-                                    "unaryExpr": {
-                                      "type": "unary expression",
-                                      "postfixExpr": {
-                                        "type": "postfix expression",
-                                        "primaryExpr": {
-                                          "expr": null,
-                                          "value": "5"
-                                        },
-                                        "postfixExpr": null,
-                                        "expr": null,
-                                        "identifier": null,
-                                        "op": null,
-                                        "arguments": null
-                                      },
-                                      "op": "null",
-                                      "unaryExpr": null
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        },
-                        "op": null,
-                        "logicalExpr": null
-                      },
-                      "unaryExpr": null,
-                      "assignOp": null,
-                      "assignExpr": null
-                    }
-                  }
-                ]
-              }
-            }
-          },
           {
             "type": "statement",
             "statementType": "expression",
