@@ -1,15 +1,7 @@
 const parser = require("./my_c_parser.js").parser;
 const fs = require("fs");
+const path = require("path");
 
-let source = require('fs').readFileSync(require('path').normalize("code.c"), "utf8");
-root = parser.parse(source)
-result = (JSON.stringify(parser.parse(source), null, 2));
-
-require('fs').writeFileSync(require('path').normalize("AST"), result, "utf8");
-
-outputStream = "";
-
-indent = 0;
 
 write = (str) => {
     outputStream += str;
@@ -49,8 +41,7 @@ printFuncDef = (funcDef) => {
 }
 
 printParam = (param) => {
-    
-    write(param.name)
+    printDeclarationName(param.name);
 }
 
 
@@ -159,7 +150,11 @@ printLogicalExpr = (loExpr) => {
         printBitOpExpr(loExpr.bitOpExpr);
     } else {
         printLogicalExpr(loExpr.logicalExpr);
-        write(" " + loExpr.op + " ");
+        if (loExpr.op == "&&") {
+            write(" and ");
+        } else {
+            write(" or ");
+        }        
         printBitOpExpr(loExpr.bitOpExpr);
     }
 }
@@ -235,7 +230,34 @@ printUnaryExpr = (unaryExpr) => {
 
 printPostfixExpr = (postfixExpr) => {
 
-    if (postfixExpr.postfixExpr != null && postfixExpr.postfixExpr.primaryExpr.value === 'scanf') {
+    if (postfixExpr.postfixExpr != null) {
+        if (postfixExpr.postfixExpr.primaryExpr.value === 'scanf' || postfixExpr.postfixExpr.primaryExpr.value === 'gets') {
+            printAssignExpr(postfixExpr.arguments[postfixExpr.arguments.length-1]);
+            write(" = input()");
+            return;
+        }
+        if (postfixExpr.postfixExpr.primaryExpr.value === 'printf') {
+            write("print(");
+            printAssignExpr(postfixExpr.arguments[0]);
+            let l = postfixExpr.arguments.length;
+            if (l > 1) {
+                write("%(");
+                let i = 0;
+                for (i = 1; i < l-1; i++) {
+                    printAssignExpr(postfixExpr.arguments[i]);
+                    write(", ");
+                }
+                if (i < l) {
+                    printAssignExpr(postfixExpr.arguments[i]);
+                }
+                write(")");
+            }
+            write(", end = '')");
+            return;
+        }
+    }
+
+    if (postfixExpr.postfixExpr != null && (postfixExpr.postfixExpr.primaryExpr.value === 'scanf' || postfixExpr.postfixExpr.primaryExpr.value === 'gets')){
         printAssignExpr(postfixExpr.arguments[postfixExpr.arguments.length-1]);
         write(" = input()");
         return;
@@ -286,6 +308,10 @@ printPrimaryExpr = (primaryExpr) => {
             write('input');
         } else if (primaryExpr.value == 'strlen') {
             write('len');
+        } else if (primaryExpr.value == 'len') {
+            write('m_len');
+        } else if (primaryExpr.value == 'next') {
+            write('m_next');
         } else {
             write(primaryExpr.value);
         }
@@ -294,21 +320,60 @@ printPrimaryExpr = (primaryExpr) => {
 
 printDeclaration = (declaration) => {
     writeIndent();
-    if (declaration.declaredType === 'char' && (declaration.isArray || declaration.isPointer)) {
-        if (declaration.assignExpr == null) {
-            write(declaration.name + ' = \"\"')
+
+    if (declaration.declaredType != 'char' && declaration.isArray) {
+        if (declaration.arraySizeLogExpr == null) {
+            printDeclarationName(declaration.name);
+            write(' =  []');
         } else {
-            write(declaration.name + ' = ');
+            printDeclarationName(declaration.name);
+            write(' =  [0] * ');
+            printLogicalExpr(declaration.arraySizeLogExpr);
+        }
+    } else if (declaration.declaredType === 'char' && (declaration.isArray || declaration.isPointer)) {
+        if (declaration.assignExpr == null) {
+            printDeclarationName(declaration.name);
+            write(' = \"\"')
+        } else {
+            printDeclarationName(declaration.name);
+            write(' = ');
             printAssignExpr(declaration.assignExpr);
         }
     } else {
         if (declaration.assignExpr != null) {
-            write(declaration.name + ' = ');
+            printDeclarationName(declaration.name);
+            write(' = ');
             printAssignExpr(declaration.assignExpr);
         }
     }
     write('\n');
 }
 
-printProgram(root);
-fs.writeFileSync(require('path').normalize("code.py"), outputStream, "utf8");
+printDeclarationName = (name) => {
+    if (name == "len") {
+        write("m_len");
+    } else if (name == "next") {
+        write("m_next");
+    } else {
+        write(name);
+    }
+}
+
+if (process.argv.length < 3) {
+    console.log('Usage: '+ process.argv[1] +' FILE');
+    return;
+}
+
+for (let i = 2; i < process.argv.length; i++) {
+    let p = path.normalize(process.argv[i]);
+    let source = require('fs').readFileSync(p, "utf8");
+    
+    let root = parser.parse(source)
+    let result = (JSON.stringify(parser.parse(source), null, 2));
+    fs.writeFileSync(path.normalize(path.parse(p).name + "_AST.json"), result, "utf8");
+
+    outputStream = "";
+    indent = 0;
+    printProgram(root);
+    fs.writeFileSync(path.normalize(path.parse(p).name + ".py"), outputStream, "utf8");
+}

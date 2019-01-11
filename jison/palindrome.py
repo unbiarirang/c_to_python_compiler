@@ -11,12 +11,12 @@ def test(s, length):
 
 def main(): 
     s = ""
-    print("Enter the string to test: ")
+    print("Enter the string to test: ", end = '')
     s = input()
     if test(s, len(s)):
-        print("true")
+        print("true", end = '')
     else:
-        print("false")
+        print("false", end = '')
     return 0
 
 main()

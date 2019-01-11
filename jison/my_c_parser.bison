@@ -188,8 +188,8 @@ direct_declarator
 	: IDENTIFIER                                           { $$ = {name: yytext, isArray: false}; }
 	| direct_declarator '(' parameter_list ')'             { $$ = {name: $1.name, params: $3}; }
     | direct_declarator '(' ')'                            { $$ = {name: $1.name, params: []}; }
-    | direct_declarator '[' ']'                            { $$ = {name: $1.name, isArray: true}; } 
-    | direct_declarator '[' logical_expression ']'         { $$ = {name: $1.name, isArray: true}; } 
+    | direct_declarator '[' ']'                            { $$ = {name: $1.name, isArray: true, arraySizeLogExpr: null}; } 
+    | direct_declarator '[' logical_expression ']'         { $$ = {name: $1.name, isArray: true, arraySizeLogExpr: $3}; } 
 	;
 
 type_specifier
@@ -232,8 +232,8 @@ declaration_list
 	;
 
 declaration
-	: declaration_specifiers ';'                  { $$ = {type: "declaration", declaredType: $1.vartype, name: null, isArray: null, isPointer: null, assignExpr: null};}
-	| declaration_specifiers init_declarator ';'  { $$ = {type: "declaration", declaredType: $1.vartype, name: $2.name, isArray: $2.isArray, isPointer: $2.isPointer, assignExpr: $2.assignExpr};}
+	: declaration_specifiers ';'                  { $$ = {type: "declaration", declaredType: $1.vartype, name: null, isArray: null, isPointer: null, assignExpr: null, arraySizeLogExpr: null};}
+	| declaration_specifiers init_declarator ';'  { $$ = {type: "declaration", declaredType: $1.vartype, name: $2.name, isArray: $2.isArray, isPointer: $2.isPointer, assignExpr: $2.assignExpr, arraySizeLogExpr: $2.arraySizeLogExpr};}
 	;
 
 declaration_specifiers
@@ -246,8 +246,8 @@ init_declarator_list
 	;
 
 init_declarator
-	: declarator                                  { $$ ={type: "init_declarator", name: $1.name, assignExpr: null, isPointer: $1.isArray, isArray: $1.isArray}; }
-	| declarator '=' initializer                  { $$ ={type: "init_declarator", name: $1.name, assignExpr: $3, isPointer: $1.isArray, isArray: $1.isArray}; }
+	: declarator                                  { $$ ={type: "init_declarator", name: $1.name, assignExpr: null, isPointer: $1.isArray, isArray: $1.isArray, arraySizeLogExpr: $1.arraySizeLogExpr}; }
+	| declarator '=' initializer                  { $$ ={type: "init_declarator", name: $1.name, assignExpr: $3, isPointer: $1.isArray, isArray: $1.isArray, arraySizeLogExpr: $1.arraySizeLogExpr}; }
 	;
 
 initializer
@@ -261,8 +261,8 @@ initializer_list
 	;
 
 declarator
-	: pointer direct_declarator                    { $$ = {type: "declarator", name: $2.name, isPointer: true, isArray: $2.isArray}; }
-	| direct_declarator                            { $$ = {type: "declarator", name: $1.name, isPointer: false, isArray: $1.isArray}; }
+	: pointer direct_declarator                    { $$ = {type: "declarator", name: $2.name, isPointer: true, isArray: $2.isArray, arraySizeLogExpr: $2.arraySizeLogExpr}; }
+	| direct_declarator                            { $$ = {type: "declarator", name: $1.name, isPointer: false, isArray: $1.isArray, arraySizeLogExpr: $1.arraySizeLogExpr}; }
 	;
 
 pointer

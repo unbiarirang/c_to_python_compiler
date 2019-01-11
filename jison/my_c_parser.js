@@ -105,10 +105,10 @@ case 7:
  this.$ = {name: $$[$0-2].name, params: []}; 
 break;
 case 8:
- this.$ = {name: $$[$0-2].name, isArray: true}; 
+ this.$ = {name: $$[$0-2].name, isArray: true, arraySizeLogExpr: null}; 
 break;
 case 9:
- this.$ = {name: $$[$0-3].name, isArray: true}; 
+ this.$ = {name: $$[$0-3].name, isArray: true, arraySizeLogExpr: $$[$0-1]}; 
 break;
 case 10: case 11: case 12: case 13: case 14: case 15: case 16: case 17: case 18: case 19:
  this.$ = {vartype: yytext};
@@ -135,28 +135,28 @@ case 27:
  this.$ = {type: "compound statement", declarations: $$[$0-2], statements: $$[$0-1]}; 
 break;
 case 30:
- this.$ = {type: "declaration", declaredType: $$[$0-1].vartype, name: null, isArray: null, isPointer: null, assignExpr: null};
+ this.$ = {type: "declaration", declaredType: $$[$0-1].vartype, name: null, isArray: null, isPointer: null, assignExpr: null, arraySizeLogExpr: null};
 break;
 case 31:
- this.$ = {type: "declaration", declaredType: $$[$0-2].vartype, name: $$[$0-1].name, isArray: $$[$0-1].isArray, isPointer: $$[$0-1].isPointer, assignExpr: $$[$0-1].assignExpr};
+ this.$ = {type: "declaration", declaredType: $$[$0-2].vartype, name: $$[$0-1].name, isArray: $$[$0-1].isArray, isPointer: $$[$0-1].isPointer, assignExpr: $$[$0-1].assignExpr, arraySizeLogExpr: $$[$0-1].arraySizeLogExpr};
 break;
 case 32: case 37:
  this.$ = $$[$0]; 
 break;
 case 35:
- this.$ ={type: "init_declarator", name: $$[$0].name, assignExpr: null, isPointer: $$[$0].isArray, isArray: $$[$0].isArray}; 
+ this.$ ={type: "init_declarator", name: $$[$0].name, assignExpr: null, isPointer: $$[$0].isArray, isArray: $$[$0].isArray, arraySizeLogExpr: $$[$0].arraySizeLogExpr}; 
 break;
 case 36:
- this.$ ={type: "init_declarator", name: $$[$0-2].name, assignExpr: $$[$0], isPointer: $$[$0-2].isArray, isArray: $$[$0-2].isArray}; 
+ this.$ ={type: "init_declarator", name: $$[$0-2].name, assignExpr: $$[$0], isPointer: $$[$0-2].isArray, isArray: $$[$0-2].isArray, arraySizeLogExpr: $$[$0-2].arraySizeLogExpr}; 
 break;
 case 40:
  $$[$0-2].push($$[$0]); this.$ =$$[$0-2]; 
 break;
 case 41:
- this.$ = {type: "declarator", name: $$[$0].name, isPointer: true, isArray: $$[$0].isArray}; 
+ this.$ = {type: "declarator", name: $$[$0].name, isPointer: true, isArray: $$[$0].isArray, arraySizeLogExpr: $$[$0].arraySizeLogExpr}; 
 break;
 case 42:
- this.$ = {type: "declarator", name: $$[$0].name, isPointer: false, isArray: $$[$0].isArray}; 
+ this.$ = {type: "declarator", name: $$[$0].name, isPointer: false, isArray: $$[$0].isArray, arraySizeLogExpr: $$[$0].arraySizeLogExpr}; 
 break;
 case 47:
  this.$ = {type: "statement", statementType: "compound", subStatement: $$[$0]}; 
