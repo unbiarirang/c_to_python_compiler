@@ -8,19 +8,29 @@ let operators = ['=', '+', '-', '*', '/', '%', '==', '!=', '<', '<=', '>', '>=',
 let types = ['int', 'float', 'double', 'char', 'char*'];
 let statements = ['if', 'else', 'for', 'while', 'return'];
 
-function tokenizer(input) {
+/**
+ * ============================================================================
+ *                                   (/^▽^)/
+ *                                THE TOKENIZER!
+ * ============================================================================
+ */
 
+/**
+ * We're gonna start off with our first phase of parsing, lexical analysis, with
+ * the tokenizer.
+ *
+ * We're just going to take our string of code and break it down into an array
+ * of tokens.
+ *
+ *   (add 2 (subtract 4 2))   =>   [{ type: 'paren', value: '(' }, ...]
+ */
+function tokenizer(input) {
   // A `current` variable for tracking our position in the code like a cursor.
   let current = 0;
 
   // And a `tokens` array for pushing our tokens to.
   let tokens = [];
 
-  // We start by creating a `while` loop where we are setting up our `current`
-  // variable to be incremented as much as we want `inside` the loop.
-  //
-  // We do this because we may want to increment `current` many times within a
-  // single loop because our tokens can be any length.
   while (current < input.length) {
 
     // We're also going to store the `current` character in the `input`.
@@ -76,38 +86,16 @@ function tokenizer(input) {
       continue;
     }
 
-    // Moving on, we're now going to check for whitespace. This is interesting
-    // because we care that whitespace exists to separate characters, but it
-    // isn't actually important for us to store as a token. We would only throw
-    // it out later.
-    //
-    // So here we're just going to test for existence and if it does exist we're
-    // going to just `continue` on.
     let WHITESPACE = /\s/;
     if (WHITESPACE.test(char)) {
       current++;
       continue;
     }
 
-    // The next type of token is a number. This is different than what we have
-    // seen before because a number could be any number of characters and we
-    // want to capture the entire sequence of characters as one token.
-    //
-    //   (add 123 456)
-    //        ^^^ ^^^
-    //        Only two separate tokens
-    //
-    // So we start this off when we encounter the first number in a sequence.
     let NUMBERS = /[0-9]/;
     if (NUMBERS.test(char)) {
-
-      // We're going to create a `value` string that we are going to push
-      // characters to.
       let value = '';
 
-      // Then we're going to loop through each character in the sequence until
-      // we encounter a character that is not a number, pushing each character
-      // that is a number to our `value` and incrementing `current` as we go.
       while (NUMBERS.test(char)) {
         value += char;
         char = input[++current];
@@ -120,12 +108,6 @@ function tokenizer(input) {
       continue;
     }
 
-    // We'll also add support for strings in our language which will be any
-    // text surrounded by double quotes (").
-    //
-    //   (concat "foo" "bar")
-    //            ^^^   ^^^ string tokens
-    //
     // We'll start by checking for the opening quote:
     if (char === '"') {
       // Keep a `value` variable for building up our string token.
@@ -150,14 +132,6 @@ function tokenizer(input) {
       continue;
     }
 
-    // The last type of token will be a `name` token. This is a sequence of
-    // letters instead of numbers, that are the names of functions in our lisp
-    // syntax.
-    //
-    //   (add 2 4)
-    //    ^^^
-    //    Name token
-    //
     let LETTERS = /[a-z_*]/i;
     if (LETTERS.test(char)) {
       let value = '';
@@ -205,38 +179,21 @@ function tokenizer(input) {
  *   [{ type: 'paren', value: '(' }, ...]   =>   { type: 'Program', body: [...] }
  */
 
-// Okay, so we define a `parser` function that accepts our array of `tokens`.
 function parser(tokens) {
-
-  // Again we keep a `current` variable that we will use as a cursor.
   let current = 0;
 
-  // But this time we're going to use recursion instead of a `while` loop. So we
-  // define a `walk` function.
   function walk() {
-
-    // Inside the walk function we start by grabbing the `current` token.
     let token = tokens[current];
 
-    // We're going to split each type of token off into a different code path,
-    // starting off with `number` tokens.
-    //
-    // We test to see if we have a `number` token.
     if (token.type === TokenType.Number) {
-
-      // If we have one, we'll increment `current`.
       current++;
 
-      // And we'll return a new AST node called `NumberLiteral` and setting its
-      // value to the value of our token.
       return {
         type: 'NumberLiteral',
         value: token.value,
       };
     }
 
-    // If we have a string we will do the same as number and create a
-    // `StringLiteral` node.
     if (token.type === TokenType.String) {
       current++;
 
@@ -252,7 +209,6 @@ function parser(tokens) {
           || (tokens[current + 1].type === TokenType.Paren
              && tokens[current + 1].value === ')'))) {
       current++;
-      console.log('Variable: ', token.value);
 
       return {
         type: 'Variable',
@@ -264,10 +220,6 @@ function parser(tokens) {
     if (token.type === TokenType.Type) {
       let node = {};
       let vartype = token.value;
-        //type: 'DefExpression',
-        //name: token.value,
-        //src: { type: 'Variable', vartype: token.value },
-        //dest: '',
 
       // skip the type token
       token = tokens[++current];
@@ -308,24 +260,6 @@ function parser(tokens) {
         // skip the '=' token 
         token = tokens[++current];
         node.src = walk();
-        //let type;
-
-        //if (token.type === TokenType.String) type = 'StringLiteral';
-        //else if (token.type === TokenType.Number) type = 'NumberLiteral';
-        //else if (token.type === TokenType.Name) type = 'Identifier';
-        //else throw new TypeError(token.type, token.value);
-
-        //if (type === 'StringLiteral' || type === 'NumberLiteral') {
-        //  node.src = {
-        //    type: type,
-        //    value: token.value,
-        //  };
-        //} else {
-        //  node.src = {
-        //    type: type,
-        //    name: token.value,
-        //  };
-        //}
 
         token = tokens[current];
         if (token.type === TokenType.Punct && token.value === ';') {
@@ -612,9 +546,7 @@ function parser(tokens) {
       }
 
       throw new TypeError(token.type, token.value);
-      // We create a base node with the type `CallExpression`, and we're going
-      // to set the name as the current token's value since the next token after
-      // the open parenthesis is the name of the function.
+
       node = {
         type: 'CallExpression',
         name: token.value,
@@ -660,292 +592,12 @@ function parser(tokens) {
     body: [],
   };
 
-  // And we're going to kickstart our `walk` function, pushing nodes to our
-  // `ast.body` array.
-  //
-  // The reason we are doing this inside a loop is because our program can have
-  // `CallExpression` after one another instead of being nested.
-  //
-  //   (add 2 2)
-  //   (subtract 4 2)
-  //
   while (current < tokens.length) {
     ast.body.push(walk());
   }
 
   // At the end of our parser we'll return the AST.
   return ast;
-}
-
-/**
- * ============================================================================
- *                                 ⌒(❀>◞౪◟<❀)⌒
- *                               THE TRAVERSER!!!
- * ============================================================================
- */
-
-/**
- * So now we have our AST, and we want to be able to visit different nodes with
- * a visitor. We need to be able to call the methods on the visitor whenever we
- * encounter a node with a matching type.
- *
- *   traverse(ast, {
- *     Program: {
- *       enter(node, parent) {
- *         // ...
- *       },
- *       exit(node, parent) {
- *         // ...
- *       },
- *     },
- *
- *     CallExpression: {
- *       enter(node, parent) {
- *         // ...
- *       },
- *       exit(node, parent) {
- *         // ...
- *       },
- *     },
- *
- *     NumberLiteral: {
- *       enter(node, parent) {
- *         // ...
- *       },
- *       exit(node, parent) {
- *         // ...
- *       },
- *     },
- *   });
- */
-
-// So we define a traverser function which accepts an AST and a
-// visitor. Inside we're going to define two functions...
-function traverser(ast, visitor) {
-
-  // A `traverseArray` function that will allow us to iterate over an array and
-  // call the next function that we will define: `traverseNode`.
-  function traverseArray(array, parent) {
-    array.forEach(child => {
-      traverseNode(child, parent);
-    });
-  }
-
-  // `traverseNode` will accept a `node` and its `parent` node. So that it can
-  // pass both to our visitor methods.
-  function traverseNode(node, parent) {
-
-    // We start by testing for the existence of a method on the visitor with a
-    // matching `type`.
-    let methods = visitor[node.type];
-
-    // If there is an `enter` method for this node type we'll call it with the
-    // `node` and its `parent`.
-    if (methods && methods.enter) {
-      methods.enter(node, parent);
-    }
-
-    // Next we are going to split things up by the current node type.
-    switch (node.type) {
-
-      // We'll start with our top level `Program`. Since Program nodes have a
-      // property named body that has an array of nodes, we will call
-      // `traverseArray` to traverse down into them.
-      //
-      // (Remember that `traverseArray` will in turn call `traverseNode` so  we
-      // are causing the tree to be traversed recursively)
-      case 'Program':
-        traverseArray(node.body, node);
-        break;
-
-      // Next we do the same with `CallExpression` and traverse their `params`.
-      case 'CallExpression':
-        traverseArray(node.params, node);
-        break;
-
-      case 'DefExpression':
-        traverseNode(node.dest, node);
-        traverseNode(node.src, node);
-
-      // In the cases of `NumberLiteral` and `StringLiteral` we don't have any
-      // child nodes to visit, so we'll just break.
-      case 'NumberLiteral':
-      case 'StringLiteral':
-      case 'Variable':
-      case 'Semicolon':
-        break;
-
-      // And again, if we haven't recognized the node type then we'll throw an
-      // error.
-      default:
-        throw new TypeError(node.type);
-    }
-
-    // If there is an `exit` method for this node type we'll call it with the
-    // `node` and its `parent`.
-    if (methods && methods.exit) {
-      methods.exit(node, parent);
-    }
-  }
-
-  // Finally we kickstart the traverser by calling `traverseNode` with our ast
-  // with no `parent` because the top level of the AST doesn't have a parent.
-  traverseNode(ast, null);
-}
-
-/**
- * ============================================================================
- *                                   ⁽(◍˃̵͈̑ᴗ˂̵͈̑)⁽
- *                              THE TRANSFORMER!!!
- * ============================================================================
- */
-
-/**
- * Next up, the transformer. Our transformer is going to take the AST that we
- * have built and pass it to our traverser function with a visitor and will
- * create a new ast.
- *
- * ----------------------------------------------------------------------------
- *   Original AST                     |   Transformed AST
- * ----------------------------------------------------------------------------
- *   {                                |   {
- *     type: 'Program',               |     type: 'Program',
- *     body: [{                       |     body: [{
- *       type: 'CallExpression',      |       type: 'ExpressionStatement',
- *       name: 'add',                 |       expression: {
- *       params: [{                   |         type: 'CallExpression',
- *         type: 'NumberLiteral',     |         callee: {
- *         value: '2'                 |           type: 'Identifier',
- *       }, {                         |           name: 'add'
- *         type: 'CallExpression',    |         },
- *         name: 'subtract',          |         arguments: [{
- *         params: [{                 |           type: 'NumberLiteral',
- *           type: 'NumberLiteral',   |           value: '2'
- *           value: '4'               |         }, {
- *         }, {                       |           type: 'CallExpression',
- *           type: 'NumberLiteral',   |           callee: {
- *           value: '2'               |             type: 'Identifier',
- *         }]                         |             name: 'subtract'
- *       }]                           |           },
- *     }]                             |           arguments: [{
- *   }                                |             type: 'NumberLiteral',
- *                                    |             value: '4'
- * ---------------------------------- |           }, {
- *                                    |             type: 'NumberLiteral',
- *                                    |             value: '2'
- *                                    |           }]
- *  (sorry the other one is longer.)  |         }
- *                                    |       }
- *                                    |     }]
- *                                    |   }
- * ----------------------------------------------------------------------------
- */
-
-// So we have our transformer function which will accept the lisp ast.
-function transformer(ast) {
-
-  // We'll create a `newAst` which like our previous AST will have a program
-  // node.
-  let newAst = {
-    type: 'Program',
-    body: [],
-  };
-
-  // Next I'm going to cheat a little and create a bit of a hack. We're going to
-  // use a property named `context` on our parent nodes that we're going to push
-  // nodes to their parent's `context`. Normally you would have a better
-  // abstraction than this, but for our purposes this keeps things simple.
-  //
-  // Just take note that the context is a reference *from* the old ast *to* the
-  // new ast.
-  ast._context = newAst.body;
-
-  // We'll start by calling the traverser function with our ast and a visitor.
-  traverser(ast, {
-
-    // The first visitor method accepts any `NumberLiteral`
-    NumberLiteral: {
-      // We'll visit them on enter.
-      enter(node, parent) {
-        // We'll create a new node also named `NumberLiteral` that we will push to
-        // the parent context.
-        // parent._context.push({
-        //   type: 'NumberLiteral',
-        //   value: node.value,
-        // });
-      },
-    },
-
-    // Next we have `StringLiteral`
-    StringLiteral: {
-      enter(node, parent) {
-        // parent._context.push({
-        //   type: 'StringLiteral',
-        //   value: node.value,
-        // });
-      },
-    },
-
-    Variable: {
-      enter(node, parent) {
-        // parent._context.push({
-        //   type: 'Variable',
-        //   name: node.name,
-        // });
-      },
-    },
-
-    DefExpression: {
-      enter(node, parent) {
-        parent._context.push(node);
-      }
-    },
-
-    // Next up, `CallExpression`.
-    CallExpression: {
-      enter(node, parent) {
-
-        if (node.name === 'printf') node.name = 'print';
-
-        // We start creating a new node `CallExpression` with a nested
-        // `Identifier`.
-        let expression = {
-          type: 'CallExpression',
-          callee: {
-            type: 'Identifier',
-            name: node.name,
-          },
-          arguments: [],
-        };
-
-        // Next we're going to define a new context on the original
-        // `CallExpression` node that will reference the `expression`'s arguments
-        // so that we can push arguments.
-        node._context = expression.arguments;
-
-        // Then we're going to check if the parent node is a `CallExpression`.
-        // If it is not...
-        if (parent.type !== 'CallExpression') {
-
-          // We're going to wrap our `CallExpression` node with an
-          // `ExpressionStatement`. We do this because the top level
-          // `CallExpression` in JavaScript are actually statements.
-          expression = {
-            type: 'ExpressionStatement',
-            expression: expression,
-          };
-        }
-
-        // Last, we push our (possibly wrapped) `CallExpression` to the `parent`'s
-        // `context`.
-        parent._context.push(expression);
-      },
-    }
-  });
-
-  // At the end of our transformer function we'll return the new ast that we
-  // just created.
-  return newAst;
 }
 
 /**
@@ -962,180 +614,118 @@ function transformer(ast) {
  * the tree into one giant string.
  */
 
-function codeGenerator(node) {
-
-  // We'll break things down by the `type` of the `node`.
-  switch (node.type) {
-
-    // If we have a `Program` node. We will map through each node in the `body`
-    // and run them through the code generator and join them with a newline.
-    case 'Program':
-      return node.body.map(codeGenerator)
-        .join('\n');
-
-    // For `ExpressionStatement` we'll call the code generator on the nested
-    // expression and we'll add a semicolon...
-    case 'ExpressionStatement':
-      return (
-        codeGenerator(node.expression) // + ';' // << (...because we like to code the *correct* way)
-      );
-
-    // For `CallExpression` we will print the `callee`, add an open
-    // parenthesis, we'll map through each node in the `arguments` array and run
-    // them through the code generator, joining them with a comma, and then
-    // we'll add a closing parenthesis.
-    case 'CallExpression':
-      return (
-        codeGenerator(node.callee) +
-        '(' +
-        node.arguments.map(codeGenerator)
-          .join(', ') +
-        ')'
-      );
-
-    case 'DefExpression':
-      return (
-        codeGenerator(node.dest) + ' = ' + codeGenerator(node.src)
-      );
-
-    // For `Identifier` we'll just return the `node`'s name.
-    case 'Identifier':
-    case 'Variable':
-      return node.name;
-
-    // For `NumberLiteral` we'll just return the `node`'s value.
-    case 'NumberLiteral':
-      return node.value;
-
-    // For `StringLiteral` we'll add quotations around the `node`'s value.
-    case 'StringLiteral':
-      return '"' + node.value + '"';
-
-    // And if we haven't recognized the node, we'll throw an error.
-    default:
-      throw new TypeError(node.type);
-  }
-}
-
-var currentfunc;
-function go(ast){
-  var result = "";
-  while(ast.body.length){
-    //console.log(ast.body.shift());
-    var temp = ast.body.shift();
+let currentfunc;
+function codeGenerator(ast) {
+  let result = "";
+  while(ast.body.length) {
+    let temp = ast.body.shift();
     currentfunc = temp.dest.name;
     result += trans(temp, 1);
   } 
-  console.log(result);
+  return result;
 }
-function addtap(indent){
-  var tab = "    ";
-  var total ="";
-  for(var i = 0; i < indent; i++)
+
+function addtap(indent) {
+  let tab = "    ";
+  let total ="";
+  for(let i = 0; i < indent; i++)
     total += tab;
   return total;
 }
 
-function trans(ast, indent){
-  var contents = "";
-  var params;
-  var bodylist;
-  //console.log(ast);
-  if(ast.type == 'FuncDefExpression'){
-    var node = ast;
+function trans(ast, indent) {
+  let contents = "";
+  let params, bodylist;
+  let node = ast;
+  if (ast.type == 'FuncDefExpression')
     bodylist = node.body;
-  }
-  else if(ast.type == 'LoopExpression'){
-    var node = ast;
+  else if (ast.type == 'LoopExpression')
     bodylist = node.action;
-  }
-  else if(ast.type == 'CondExpression'){
-    var node = ast;
-    if(node.true_action.length != 0)
+  else if (ast.type == 'CondExpression') {
+    if (node.true_action.length != 0)
       bodylist = node.true_action;
-    else if(node.true_action.length == 0 && node.false_action.length != 0)
+    else if (node.true_action.length == 0 && node.false_action.length != 0)
       bodylist = node.false_action;
   }
 
   if (node.type == 'FuncDefExpression' && node.dest.name != 'main'){
     contents += "def " + node.dest.name + "(";
-    var param_length = node.params.length;
-    if(param_length > 0){
-      for(var i = 1; i < param_length; i++){
+    let param_length = node.params.length;
+
+    if (param_length > 0) {
+      for (let i = 1; i < param_length; i++) {
         params = node.params.shift();
         contents += params.name + ", ";
       }
       contents += node.params.shift().name + "):\n";
     }
   }
-  while(bodylist.length){
-    var body = bodylist.shift();
+  while (bodylist.length) {
+    let body = bodylist.shift();
     switch (body.type){
       case 'VarDefExpression':
-        var dest = body.dest;
-        var src = body.src;
-        //contents += tab;
+        let dest = body.dest;
+        let src = body.src;
+
         if(currentfunc != 'main')
           contents += addtap(indent);
         contents += dest.name + ' = ';
 
-        if(src != undefined){
-          if(src.type == 'NumberLiteral'){
+        if (src != undefined) {
+          if (src.type == 'NumberLiteral')
             contents += src.value;
-          }
-          else if(src.type == 'Variable'){
+          else if (src.type == 'Variable')
             contents += src.name;
-          }
         }
-        else{
+        else
           contents += '\'\'';
-        }
       break;
       
       case 'OpExpression':
-        var left = body.left;
-        var right = body.right;
-        var op = body.op;
-        if(currentfunc != 'main')
+        let left = body.left;
+        let right = body.right;
+        let op = body.op;
+        if (currentfunc != 'main')
           contents += addtap(indent);
         contents += left.name + ' = ' + left.name + ' ' + op + ' ';
-        if(right.type == 'NumberLiteral'){
+        if (right.type == 'NumberLiteral')
           contents += right.value;
-        }
-        else if(right.type == 'Variable'){
+        else if (right.type == 'Variable')
           contents += right.name;
-        }
         break;
+
       case 'CondExpression':
-        if(currentfunc != 'main')
+        if (currentfunc != 'main')
           contents += addtap(indent);
+        body.condition = body.condition.replace('strlen','len');
         contents += 'if (' + body.condition +'):\n';
         contents += trans(body, indent + 1);
-        if(body.false_action.length != 0){
+
+        if (body.false_action.length != 0) {
           contents += 'else:\n';
           contents += trans(body, indent + 1);
         }
         break;
       
       case 'CallExpression':
-        var param;
+        let param;
         if (currentfunc == 'main')
           contents += addtap(indent - 1);
         else
           contents += addtap(indent);
-        if(body.name == 'printf'){
-          contents += 'printf(\"';
-          while(body.params.length){
+        if (body.name == 'printf') {
+          contents += 'print(\"';
+
+          while (body.params.length) {
             param = body.params.shift();
-            if(param.type == 'StringLiteral')
+            if (param.type == 'StringLiteral')
               contents += param.value + '\")';
           }
         }
-        else if(body.name == 'scanf'){
-          //console.log(body);
-          while(body.params.length){
+        else if (body.name == 'scanf') {
+          while (body.params.length) {
             param = body.params.shift();
-            if(param.type == 'Variable')
+            if (param.type == 'Variable')
               contents += param.name + ' = input()';
           }
         }
@@ -1143,27 +733,29 @@ function trans(ast, indent){
 
 
       case 'RetExpression':
-        if(currentfunc != 'main'){
+        if (currentfunc != 'main') {
           contents += addtap(indent);
           contents += 'return ';
-          if(body.value.type == 'NumberLiteral')
+          if (body.value.type == 'NumberLiteral')
             contents += body.value.value;
         }
         break;
 
       case 'LoopExpression':
-        if(currentfunc != 'main')
+        if (currentfunc != 'main')
           contents += addtap(indent);
+
         contents += 'while (' + body.condition + '):\n';
         contents += trans(body, indent + 1);
         break;
+
       default:
         throw new TypeError(body.type);
     }
-    if(body.type != 'CondExpression')
+
+    if (body.type != 'CondExpression')
       contents += '\n';
   }
-  //}//end of while
   return contents;
 }
 
@@ -1180,28 +772,14 @@ function trans(ast, indent){
  *
  *   1. input  => tokenizer   => tokens
  *   2. tokens => parser      => ast
- *   3. ast    => transformer => newAst
- *   4. newAst => generator   => output
+ *   3. ast    => generator   => output
  */
-
-
-
-
-
 
 function compiler(input) {
   let tokens = tokenizer(input);
-  console.log('=====tokens=====');
-  console.log(tokens);
   let ast = parser(tokens);
-  console.log('=====ast=====');
-  console.log(JSON.stringify(ast, null, 4));
-  let newAst = transformer(ast);
-  console.log('=====new ast=====');
-  console.log(JSON.stringify(newAst, null, 4));
-  let output = codeGenerator(newAst);
+  let output = codeGenerator(ast);
 
-  // and simply return the output!
   return output;
 }
 
@@ -1209,58 +787,6 @@ function compiler(input) {
 module.exports = {
   tokenizer,
   parser,
-  traverser,
-  transformer,
   codeGenerator,
   compiler,
-  go,
 };
-
-let input = `
-#include <stdio.h>
-#include <string.h>
-
-int test(char* s, int len) {
-    int i = 0;
-	int j = len;
-    len--;
-    while (i < j) {
-        if (s[i] != s[j]) {
-			return 0;
-        }
-        i++;
-        j--;
-    }
-    return 1;
-}
-int main() {
-    char s[200];
-    printf("Enter the string to test: ");
-    scanf("%s", s);
-    if (test(s, strlen(s))) {
-		printf("true");
-    }
-    else {
-		printf("false");
-    }
-    return 0;
-}
-`;
-// let input2 = 'int i = 0; int j = i;';
-// let input3 = 'int main(int x, int y) { int a = 1; int b = 2; }';
-// let input4 = 'printf("The string is palindromic.\n");';
-// let input5 = 'add(1, 2);';
-// let input6 = 'char s[200];';
-// let input7 = 'i++; j--;'
-// let input8 = 'i = 0;';
-// let input9 = 'i = j;';
-// let input10 = 'return 1;';
-// let input11 = 'return x;';
-// let input12 = 'while (i < j) { int x = 1; return x; }';
-// let input13 = 'if (test(s, strlen(s))) {}';
-// let input14 = 'if (s[i] == s[j]) { return 1; } else { return 0; }';
-// let input15 = 'int test(char* s, int len) {}';
-// let input16 = 'scanf("%s", s);';
-// let output = compiler(input);
-// console.log('=====output=====');
-// console.log(output);

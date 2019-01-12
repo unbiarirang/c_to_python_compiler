@@ -3,15 +3,19 @@ const compiler = require('./compiler');
 
 function compileFile(filename) {
     let text = fs.readFileSync(filename).toString();
-    //console.log(text);
     let tokens = compiler.tokenizer(text);
-    //console.log(tokens);
     let ast = compiler.parser(tokens);
-    compiler.go(ast);
+    let result = compiler.codeGenerator(ast);
+    filename = filename.substring(0, filename.length - 2);
+    fs.writeFile('./' + filename + '.py', result, function(err) {
+        if(err) 
+          console.log("输出失败");
+        else
+          console.log("输出成功");
+    })
 };
 
 process.argv.forEach(function(val) {
-    console.log(val);
     if (val.slice(-2) == ".c")
         compileFile(val);
 });
