@@ -622,13 +622,7 @@ function codeGenerator(ast) {
     currentfunc = temp.dest.name;
     result += trans(temp, 1);
   } 
-  console.log(result);
-  fs.writeFile('./result.py',result,function(err) {
-    if(err) 
-      console.log("输出失败");
-    else
-      console.log("输出成功");
-  })
+  return result;
 }
 
 function addtap(indent) {
