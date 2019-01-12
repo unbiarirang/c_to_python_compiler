@@ -283,7 +283,7 @@ statement
 	| jump_statement                               { $$ = {type: "statement", statementType: "jump", subStatement: $1}; }
 	;
 
-expression_statement //可能為空對象
+expression_statement
 	: ';'                                          { $$ = {type: "expression statement", expr: null};}
 	| expression ';'                               { $$ = {type: "expression statement", expr: $1}; }
 	;

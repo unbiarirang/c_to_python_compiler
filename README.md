@@ -1,6 +1,6 @@
-# c_to_python_compiler
+# c_to_python_transcriptor
 
-c to python javascript compiler
+c to python transcriptor in javascript
 
 ## jison parser usage
 
