@@ -8,10 +8,10 @@ function compileFile(filename) {
     let result = compiler.codeGenerator(ast);
     filename = filename.substring(0, filename.length - 2);
     fs.writeFile('./' + filename + '.py', result, function(err) {
-        if(err) 
-          console.log("输出失败");
+        if (err)
+          console.log("failed");
         else
-          console.log("输出成功");
+          console.log("OK");
     })
 };
 

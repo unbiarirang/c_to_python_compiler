@@ -1,16 +1,12 @@
 # 编译大作业 c to python 翻译器实验报告
 
 软件63 刘家维 2016013246
+软件61 崔殷庇 2015080118
+软件61 李相赫 2016080042
 
 ## 实验原理与方法
 
 我们使用了两种方法，一种是自己写脚本执行词法语法分析，另一种方法是使用jison词语法分析工具。实现了回文函数与KMP算法函数的转译。
-
-### Hard-coding approach
-
-
-
-
 
 ### jison approach
 
@@ -114,11 +110,39 @@ printAssignExpr = (asExpr) => {
 
 
 
+### Hard-coding approach
+
+整个c到python的转换由`compiler.js`单个脚本完成。
+
+`compiler.js`由 **tokenizer(lexer)**、**parser** 和 **codeGenerator**三大部分组成，把它们连接起来得到`compiler`。
+
+1. Tokenizer: Take our string of code and break it down in to an array of tokens.
+2. Parser: Take array of tokens and turn it into an AST.
+3. CodeGenerator: Recursively call itself to print each node in the tree into one giant string (output).
+
+```c
+function compiler(input) {
+  let tokens = tokenizer(input);
+  let ast = parser(tokens);
+  let output = codeGenerator(ast);
+
+  // python code
+  return output;
+}
+```
+
+
+
 ## 使用、运行方法
 
 ### Hard-coding approach
 
+```
+cd ./hard-coding-approach
+node c_to_python.js parlindrome.c
+```
 
+变换成功会生成`parlindrome.py`
 
 ### jison approach
 

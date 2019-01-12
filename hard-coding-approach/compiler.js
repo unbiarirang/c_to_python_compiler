@@ -25,18 +25,12 @@ let statements = ['if', 'else', 'for', 'while', 'return'];
  *   (add 2 (subtract 4 2))   =>   [{ type: 'paren', value: '(' }, ...]
  */
 function tokenizer(input) {
-  // A `current` variable for tracking our position in the code like a cursor.
   let current = 0;
-
-  // And a `tokens` array for pushing our tokens to.
   let tokens = [];
 
   while (current < input.length) {
-
-    // We're also going to store the `current` character in the `input`.
     let char = input[current];
 
-    // skip include header line
     if (char === '#') {
       while (char !== '>') {
         current++;
@@ -101,23 +95,16 @@ function tokenizer(input) {
         char = input[++current];
       }
 
-      // After that we push our `number` token to the `tokens` array.
       tokens.push({ type: TokenType.Number, value });
-
-      // And we continue on.
       continue;
     }
 
-    // We'll start by checking for the opening quote:
     if (char === '"') {
-      // Keep a `value` variable for building up our string token.
       let value = '';
 
-      // We'll skip the opening double quote in our token.
+      // Skip the opening double quote in our token.
       char = input[++current];
 
-      // Then we'll iterate through each character until we reach another
-      // double quote.
       while (char !== '"') {
         value += char;
         char = input[++current];
@@ -136,7 +123,6 @@ function tokenizer(input) {
     if (LETTERS.test(char)) {
       let value = '';
 
-      // Again we're just going to loop through all the letters pushing them to
       // a value.
       while (LETTERS.test(char)) {
         value += char;
@@ -150,18 +136,15 @@ function tokenizer(input) {
       if (types.indexOf(value) >= 0) type = TokenType.Type;
       else if (statements.indexOf(value) >= 0) type = TokenType.Statm;
       else type = TokenType.Name;
-      // And pushing that value as a token with the type `name` and continuing.
       tokens.push({ type: type, value });
 
       continue;
     }
 
-    // Finally if we have not matched a character by now, we're going to throw
     // an error and completely exit.
     throw new TypeError('I dont know what this character is: ' + char);
   }
 
-  // Then at the end of our `tokenizer` we simply return the tokens array.
   return tokens;
 }
 
