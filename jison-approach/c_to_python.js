@@ -1,6 +1,7 @@
-const parser = require("./my_c_parser.js").parser;
+//const parser = require("./my_c_parser.js").parser;
 const fs = require("fs");
 const path = require("path");
+const Parser = require("jison").Parser;
 
 
 write = (str) => {
@@ -78,25 +79,25 @@ printCompoundStat = (stat) => {
 }
 
 printSelectionStat = (stat) => {
-    writeIndent()
+    writeIndent();
     write("if ");
-    printExpression(stat.conditionExpr)
+    printExpression(stat.conditionExpr);
     //write("expr")
-    write(":\n")
+    write(":\n");
     indent += 4;
     printStatement(stat.ifThenStatement);
     indent -= 4;
 
     if (stat.elseStatement != null) {
         writeIndent();
-        write("else:\n")
+        write("else:\n");
         indent += 4;
         printStatement(stat.elseStatement);
         indent -= 4;
     }
 }
 printIterationStat = (stat) => {
-    writeIndent()
+    writeIndent();
     if (stat.loopType === 'while') {
         write('while ');
         printExpression(stat.exprs[0]);
@@ -114,7 +115,7 @@ printJumpStat = (stat) => {
         if (stat.expr != null) {
             printExpression(stat.expr)
         }
-        write('\n')
+        write('\n');
     }
 }
 printExpressionStat = (stat) => {
@@ -366,10 +367,13 @@ if (process.argv.length < 3) {
 
 for (let i = 2; i < process.argv.length; i++) {
     let p = path.normalize(process.argv[i]);
-    let source = require('fs').readFileSync(p, "utf8");
+    let codeSource = require('fs').readFileSync(p, "utf8");
     
-    let root = parser.parse(source)
-    let result = (JSON.stringify(parser.parse(source), null, 2));
+    let parseRulesSource = fs.readFileSync(path.normalize("my_c_parser.bison"), "utf8");
+    let parser = new Parser(parseRulesSource);
+
+    let root = parser.parse(codeSource)
+    let result = (JSON.stringify(root, null, 2));
     fs.writeFileSync(path.normalize(path.parse(p).name + "_AST.json"), result, "utf8");
 
     outputStream = "";

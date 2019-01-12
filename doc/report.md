@@ -1,8 +1,10 @@
 # 编译大作业 c to python 翻译器实验报告
 
+软件63 刘家维 2016013246
+
 ## 实验原理与方法
 
-我们使用了两种方法，一种是自己写脚本执行词法语法分析，另一种方法是使用jison词语法分析工具
+我们使用了两种方法，一种是自己写脚本执行词法语法分析，另一种方法是使用jison词语法分析工具。实现了回文函数与KMP算法函数的转译。
 
 ### Hard-coding approach
 
@@ -14,7 +16,7 @@
 
 `jison`是javascript版本的flex + bison，支持lex格式与yacc格式的词法、语法规则。
 
-透过`jison`，给定词法语法规则(还可以在描述语法的同时，添入js语言的语义规则)，我们可以生成自己的parser，是一个js文件、模块，这自动生成的模块本身也支持命令行使用。
+透过`jison`，给入词法语法规则(还可以在描述语法的同时，添入js语言的语义规则)，我们可以生成自己的parser。
 
 parser的`parse()`函数可以对输入串进行分析。假如传给`jison`的文件只含词法+语法规则，那么`parse`只会对输入串进行词法+语法分析，若分析没有问题，则parse回传值是`true`，有错误的话则会报错显示预期的token是哪些。
 传给`jison`的语法规则中，每条产生式都可以添加语义规则(js语言描述)，则语法分析在该条产生式归约时，会运行对应语句，并可向上传递综合属性。一个简单的例子像是:
@@ -57,13 +59,13 @@ parameter_list
 
 语法规则部份，为了方便添加语义规则，删去了`c99.y`中很多细节或少见的语法，并且默认一个c代码由多个函数定义所构成，像是`palindrome.c`就由`test()`与`main()`构成。
 
-对`jison`传入`my_c_parser.bison`，得到我们的parser，`my_c_parser.js`模块。给入输入串，它能为我们生成AST。
+对`jison`传入`my_c_parser.bison`，可以生成得到我们的parser对象。对parser给入C代码输入串，它能为我们生成AST。
 
 
 
 #### AST to Python   (c_to_python.js)
 
-编写`c_to_python.js`脚本，引用`my_c_parser.js`模块来对输入串(code.c)分析，生成AST object，然后再将AST输出成python代码(code.py)。
+编写`c_to_python.js`脚本，使用`my_c_parser.bison`生成出的parser来对输入串(code.c)分析，生成AST object，然后再将AST输出成python代码(code.py)。
 
 AST中有多层节点，每层节点就是一个js Object，可能有不同键、键值类型也不一样。因为js本身没有class，对于object的成员类型也无法定义，所以为了方便处理，我们必须在用语义规则生成AST时，就要约定好有哪几种类型的节点。
 
@@ -91,8 +93,6 @@ AST中有多层节点，每层节点就是一个js Object，可能有不同键�
 说明我们约定好`assignment expression`类型的节点要有`logicalExpr`键，其值为一个`logical expression`的节点，若其值为`null`，则它还应有`unaryExpr`、`assignOp`、`assignExpr`这三个键。
 
 有了对于个节点的结构的明确描述，我们就在编写语义规则时，就要去封装出这些结构的节点。而在编写输出脚本时，就可以编写递归函数，为不同类型的节点写不同的print函数，像是:
-
-对于
 
 ```js
 // c_to_python.js
@@ -122,26 +122,21 @@ printAssignExpr = (asExpr) => {
 
 ### jison approach
 
-首先`cd ./jison/`
+1. 首先`npm install`来安装依赖项`jison`。
 
-#### 生成parser
-
-项目中已存在生成好的parser，如果对于`my_c_parser.bison`中的词语法、语义规则有所改动，才需要重新生成。
-
-1. `npm install jison -g`来安装并使用 `jison`。
-2. `jison my_c_parser.bison`生成`my_c_parser.js`
-
-
-
-
-
-#### c 转 python
-
-`node c_to_python.js code.c` 可以生成`code.c`对应的`code_AST.json`与`code.py`。
+2. `cd ./jison/`
+3. `node c_to_python.js code.c` 可以生成`code.c`对应的`code_AST.json`与`code.py`。
 
 目前功能可以将``palindrom.c`和`kmp.c`转换成正常运行的`palindrom.py`与`kmp.py`。
 
-* Note that `c_to_python.js` uses `my_c_parser.js` as a module "hard-codingly"!
+* Note that `c_to_python.js` uses `my_c_parser.bison` as an input "hard-codingly"!
 
 
 
+## 难点与创新点
+
+不论使用哪种approach, 难点之一都是要先理解C语言的语法结构，才能顺利语法分析。理解的过程中，也要知道哪些语法是太少用到且在这个项目中用不上的，适当的简化语法，才能在此次作业中更有效率，语义规则也才能编写的更容易。
+
+另外一些难点在于C语言跟python有些根本的语法差异。各种语言的表达式文法都差不多，所以表达式的问题还不太大，但是在变量声明跟类型上就有很多差异了。像是python声明变量不需要类型，也没有指针，所以在C中遇到`char[]`或`char*`时就要用`s=""`来替代。而C中有`++`与`--`，若只是单纯的`i++;`，尚可以用`i += 1`来替代，但若是一长串表达式中有++，就很难处理了。此外，还有一些基本函数的名称不一样，像是printf要与print对应，`scanf`要与`input`对应，`strlen`对应`len`，且python中还有一些保留关键字是C没有的。这些差异都需要在输出时列出特例来检查并替换。尤其像`scanf` -> `input`，使用的语法结构有根本的差异，所以不能在语法树的最末端才将`scanf`换成`input`, 这样会写出`input("%s", &s)`这样的句型，所以必须要在较上层的节点(postfix expression)中就往下搜索，提前得知函数名与相关参数，才能打印出正确的`input`语句。
+
+我们组创新的地方在于两种approach方法都实现了，对词法分析和语法分析的理解更加深刻。同时在使用分析工具上，我们采用了jison，而非flex+bison，采用jison，可以更好地直接透过js模块来制作parser，同时语义规则也是使用js语言编写，不仅方便也使得整个项目更加统一。
