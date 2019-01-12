@@ -623,6 +623,12 @@ function codeGenerator(ast) {
     result += trans(temp, 1);
   } 
   console.log(result);
+  fs.writeFile('./result.py',result,function(err) {
+    if(err) 
+      console.log("输出失败");
+    else
+      console.log("输出成功");
+  })
 }
 
 function addtap(indent) {
@@ -697,6 +703,7 @@ function trans(ast, indent) {
       case 'CondExpression':
         if (currentfunc != 'main')
           contents += addtap(indent);
+        body.condition = body.condition.replace('strlen','len');
         contents += 'if (' + body.condition +'):\n';
         contents += trans(body, indent + 1);
 
@@ -713,7 +720,7 @@ function trans(ast, indent) {
         else
           contents += addtap(indent);
         if (body.name == 'printf') {
-          contents += 'printf(\"';
+          contents += 'print(\"';
 
           while (body.params.length) {
             param = body.params.shift();
